@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sky Dental Center | Premium Aesthetic Dentistry</title>
+    
+    <!-- Google Fonts: Cinzel (Serif - Luxury) & Montserrat (Sans - Clean) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* =========================================
+           CORE VARIABLES & RESET (LABO STYLE)
+           ========================================= */
+        :root {
+            --bg-dark: #0b0b0b;
+            --bg-card: #141414;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            
+            /* Gold Palette */
+            --gold: #D4AF37; 
+            --gold-hover: #b5952f;
+            --gold-light: #f3e5ab;
+            
+            --font-serif: 'Cinzel', serif;
+            --font-sans: 'Montserrat', sans-serif;
+            
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); /* Smooth luxury ease */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; letter-spacing: 0.05em; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        img { width: 100%; display: block; height: auto; }
+        button, select, input { font-family: var(--font-sans); }
+
+        /* =========================================
+           NAVBAR (Sticky, Transparent to Black)
+           ========================================= */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: var(--transition);
+            mix-blend-mode: exclusion; /* Ensures visibility on dark images */
+            color: #fff;
+        }
+
+        .navbar.scrolled {
+            background: rgba(11, 11, 11, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 5%;
+            mix-blend-mode: normal;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .nav-links { display: flex; gap: 40px; }
+
+        .nav-item {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+
+        .nav-item:hover::after { width: 100%; }
+        .nav-item.active { color: var(--gold); }
+
+        .mobile-toggle { display: none; cursor: pointer; }
+
+        /* =========================================
+           PAGE STRUCTURE (SPA LOGIC)
+           ========================================= */
+        main { min-height: 100vh; padding-top: 80px; }
+        
+        /* Hide all pages by default */
+        .page { 
+            display: none; 
+            opacity: 0; 
+            animation: fadeIn 0.8s forwards; 
+        }
+        
+        /* Show active page */
+        .page.active { display: block; }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* =========================================
+           SHARED COMPONENTS
+           ========================================= */
+        .btn-gold {
+            display: inline-block;
+            padding: 15px 40px;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: transparent;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-gold::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 0%; height: 100%;
+            background: var(--gold);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .btn-gold:hover::before { width: 100%; }
+        .btn-gold:hover { color: var(--bg-dark); }
+
+        .section-header {
+            margin-bottom: 60px;
+            border-left: 1px solid var(--gold);
+            padding-left: 25px;
+        }
+
+        .section-subtitle {
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--gold);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .section-title { font-size: 2.5rem; margin-bottom: 20px; }
+
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 5%; }
+
+        /* =========================================
+           PAGE 1: HOME
+           ========================================= */
+        #page-home { padding-top: 0; }
+
+        .hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            /* Dark moody background image placeholder */
+            background: url('https://picsum.photos/seed/luxurydentaldark/1920/1080') no-repeat center center/cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding-left: 10%;
+            max-width: 800px;
+        }
+
+        .hero h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 30px; }
+        .hero p { font-size: 1.1rem; color: #ccc; margin-bottom: 40px; max-width: 500px; font-weight: 300; }
+
+        /* =========================================
+           PAGE 2: TREATMENTS
+           ========================================= */
+        .treatment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1px;
+            background: rgba(255,255,255,0.1); /* Grid lines */
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .treatment-card {
+            background: var(--bg-dark);
+            padding: 80px 40px;
+            transition: var(--transition);
+        }
+
+        .treatment-card:hover { background: var(--bg-card); }
+
+        .treatment-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--gold-light); }
+        .treatment-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 30px; }
+        
+        .link-arrow {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* =========================================
+           PAGE 3: PHILOSOPHY (ABOUT)
+           ========================================= */
+        .philosophy-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 80vh;
+        }
+
+        .philosophy-img {
+            background: url('https://picsum.photos/seed/dentalinterior/800/1000') center/cover;
+        }
+
+        .philosophy-text {
+            padding: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .philosophy-text p { color: var(--text-muted); margin-bottom: 20px; font-weight: 300; }
+
+        /* =========================================
+           PAGE 4: TEAM
+           ========================================= */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 60px;
+            margin-top: 60px;
+        }
+
+        .doctor-card { text-align: center; }
+        
+        .doctor-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            margin-bottom: 30px;
+            filter: grayscale(100%);
+            transition: var(--transition);
+        }
+
+        .doctor-card:hover .doctor-img { filter: grayscale(0%); }
+        .doctor-name { font-size: 1.5rem; margin-bottom: 5px; }
+        .doctor-title { font-size: 0.8rem; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; }
+        .book-doc-btn {
+            margin-top: 20px;
+            font-size: 0.7rem;
+            color: #fff;
+            text-decoration: underline;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        /* =========================================
+           PAGE 5: BOOKING (SYSTEM)
+           ========================================= */
+        .booking-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 60px;
+            border: 1px solid #222;
+        }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .form-group { margin-bottom: 25px; }
+        
+        .full-width { grid-column: span 2; }
+
+        label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; color: var(--gold); }
+
+        input, select, textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #444;
+            padding: 15px 0;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        input:focus, select:focus, textarea:focus { border-bottom-color: var(--gold); }
+        
+        select { cursor: pointer; }
+        /* Custom select arrow for dark theme */
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23D4AF37%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0 center;
+            background-size: 10px auto;
+        }
+
+        /* =========================================
+           PAGE 6: CONTACT
+           ========================================= */
+        .contact-layout { display: grid; grid-template-columns: 1fr 1fr; }
+        .contact-info { padding: 80px; background: #0f0f0f; }
+        .contact-map { height: 100%; min-height: 400px; background: #222; display: flex; align-items: center; justify-content: center; color: #555; }
+        
+        .info-item { margin-bottom: 40px; }
+        .info-label { color: var(--gold); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 5px; }
+        .info-val { font-size: 1.1rem; }
+
+        /* =========================================
+           FOOTER
+           ========================================= */
+        footer {
+            background: #000;
+            padding: 80px 5%;
+            border-top: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .footer-logo { font-family: var(--font-serif); font-size: 1.2rem; }
+        .socials a { margin-left: 20px; color: #666; font-size: 0.8rem; text-transform: uppercase; }
+        .socials a:hover { color: var(--gold); }
+
+        /* =========================================
+           RESPONSIVE
+           ========================================= */
+        @media(max-width: 900px) {
+            .nav-links { display: none; } /* Simplified for example, ideally add burger menu */
+            .philosophy-split, .form-grid, .contact-layout { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
+            .philosophy-img { height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="logo" onclick="navigateTo('page-home')">Sky Dental</div>
+        <div class="nav-links">
+            <div class="nav-item active" onclick="navigateTo('page-home')">Home</div>
+            <div class="nav-item" onclick="navigateTo('page-treatments')">Treatments</div>
+            <div class="nav-item" onclick="navigateTo('page-philosophy')">Philosophy</div>
+            <div class="nav-item" onclick="navigateTo('page-team')">Team</div>
+            <div class="nav-item" onclick="navigateTo('page-booking')">Book Now</div>
+            <div class="nav-item" onclick="navigateTo('page-contact')">Contact</div>
+        </div>
+        <div class="mobile-toggle">☰</div>
+    </nav>
+
+    <main id="app">
+        
+        <!-- PAGE 1: HOME -->
+        <div id="page-home" class="page active">
+            <section class="hero">
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <h1>The Art of <br><span style="color:var(--gold)">Aesthetic Dentistry</span></h1>
+                    <p>Experience the pinnacle of dental luxury. Where sculpting, science, and art converge to create your perfect smile.</p>
+                    <button class="btn-gold" onclick="navigateTo('page-booking')">Book Consultation</button>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE 2: TREATMENTS -->
+        <div id="page-treatments" class="page">
+            <div class="container" style="padding-top: 80px; padding-bottom: 80px;">
+                <div class="section-header">
+                    <span class="section-subtitle">Procedures</span>
+                    <h2 class="section-title">Curated Treatments</h2>
+                </div>
+                <div class="treatment-grid">
+                    <div class="treatment-card">
+                        <h3>Porcelain Veneers</h3>
+                        <p>Custom-crafted ceramic shells designed to correct shape, color, and alignment for a flawless celebrity smile.</p>
+                        <div class="link-arrow">Learn More →</div>
+                    </div>
+                    <div class="treatment-card">
+                        <h3>Smile Design</h3>
+                        <p>A comprehensive digital and physical analysis to architect your smile before treatment begins.</p>
+                        <div class="link-arrow">Learn More →</div>
+                    </div>
+                    <div class="treatment-card">
+                        <h3>Implant Restoration</h3>
+                        <p>State-of-the-art titanium implants providing a permanent, natural-looking foundation for missing teeth.</p>
+                        <div class="link-arrow">Learn More →</div>
+                    </div>
+                    <div class="treatment-card">
+                        <h3>Laser Whitening</h3>
+                        <p>Advanced light-activated technology to lift stains and brighten your smile up to 8 shades in one session.</p>
+                        <div class="link-arrow">Learn More →</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 3: PHILOSOPHY -->
+        <div id="page-philosophy" class="page">
+            <div class="philosophy-split">
+                <div class="philosophy-img"></div>
+                <div class="philosophy-text">
+                    <div class="section-header" style="border-left:none; padding-left:0;">
+                        <span class="section-subtitle">The Sky Standard</span>
+                        <h2 class="section-title">Precision & Elegance</h2>
+                    </div>
+                    <p>We believe that a dental visit should be an experience of tranquility and transformation. Inspired by the art of sculpture, we approach every tooth as a unique element of a larger masterpiece.</p>
+                    <p>Our clinic utilizes only premium materials and cutting-edge technology, ensuring that your results are not only beautiful but durable and biologically harmonious.</p>
+                    <br>
+                    <button class="btn-gold" onclick="navigateTo('page-team')">Meet The Specialists</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 4: TEAM -->
+        <div id="page-team" class="page">
+            <div class="container" style="padding-top: 80px; padding-bottom: 80px;">
+                <div class="text-center" style="text-align:center; max-width:600px; margin:0 auto;">
+                    <div class="section-header" style="border:none; padding:0; text-align:center;">
+                        <span class="section-subtitle">Specialists</span>
+                        <h2 class="section-title">Master Craftsmen</h2>
+                    </div>
+                    <p style="color:#888; margin-bottom:50px;">Our team of elite dentists brings decades of combined experience in aesthetic reconstructive dentistry.</p>
+                </div>
+
+                <div class="team-grid">
+                    <!-- Doctor 1 -->
+                    <div class="doctor-card">
+                        <img src="https://picsum.photos/seed/doctor1/400/500" class="doctor-img" alt="Dr. Adrian Vole">
+                        <h3 class="doctor-name">Dr. Adrian Vole</h3>
+                        <div class="doctor-title">Cosmetic Director</div>
+                        <div class="book-doc-btn" onclick="prefillDoctor('Dr. Adrian Vole')">Book with Dr. Vole</div>
+                    </div>
+                    <!-- Doctor 2 -->
+                    <div class="doctor-card">
+                        <img src="https://picsum.photos/seed/doctor2/400/500" class="doctor-img" alt="Dr. Elena Ross">
+                        <h3 class="doctor-name">Dr. Elena Ross</h3>
+                        <div class="doctor-title">Prosthodontics</div>
+                        <div class="book-doc-btn" onclick="prefillDoctor('Dr. Elena Ross')">Book with Dr. Ross</div>
+                    </div>
+                    <!-- Doctor 3 -->
+                    <div class="doctor-card">
+                        <img src="https://picsum.photos/seed/doctor3/400/500" class="doctor-img" alt="Dr. James Sterling">
+                        <h3 class="doctor-name">Dr. James Sterling</h3>
+                        <div class="doctor-title">Oral Surgery</div>
+                        <div class="book-doc-btn" onclick="prefillDoctor('Dr. James Sterling')">Book with Dr. Sterling</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 5: BOOKING SYSTEM -->
+        <div id="page-booking" class="page">
+            <div class="container" style="padding-top: 80px; padding-bottom: 80px;">
+                <div class="section-header">
+                    <span class="section-subtitle">Appointment</span>
+                    <h2 class="section-title">Secure Your Visit</h2>
+                </div>
+
+                <div class="booking-wrapper">
+                    <form id="bookingForm" onsubmit="handleBooking(event)">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" required>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label>Email Address</label>
+                                <input type="email" required>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label>Select Specialist</label>
+                                <select id="doctorSelect" required>
+                                    <option value="" disabled selected>Select a Doctor...</option>
+                                    <option value="Dr. Adrian Vole">Dr. Adrian Vole (Cosmetic)</option>
+                                    <option value="Dr. Elena Ross">Dr. Elena Ross (Prosthodontics)</option>
+                                    <option value="Dr. James Sterling">Dr. James Sterling (Surgery)</option>
+                                    <option value="Any Specialist">Any Available Specialist</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Preferred Service</label>
+                                <select required>
+                                    <option value="" disabled selected>Treatment...</option>
+                                    <option value="Consultation">Initial Consultation</option>
+                                    <option value="Veneers">Porcelain Veneers</option>
+                                    <option value="Whitening">Laser Whitening</option>
+                                    <option value="Implants">Dental Implants</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Preferred Date</label>
+                                <input type="date" required>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label>Notes</label>
+                                <textarea rows="4" placeholder="Any specific concerns or requests?"></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-gold" style="margin-top:20px; width:100%;">Confirm Booking</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 6: CONTACT -->
+        <div id="page-contact" class="page">
+            <div class="contact-layout">
+                <div class="contact-info">
+                    <div class="section-header" style="border:none; padding:0;">
+                        <span class="section-subtitle">Get in Touch</span>
+                        <h2 class="section-title">Contact Us</h2>
+                    </div>
+                    <div style="margin-top:40px;">
+                        <div class="info-item">
+                            <span class="info-label">Address</span>
+                            <div class="info-val">88 Luxury Blvd, Penthouse<br>New York, NY 10012</div>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Phone</span>
+                            <div class="info-val">+1 (212) 555-0199</div>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Email</span>
+                            <div class="info-val">concierge@skydental.com</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-map">
+                    <p>Map Placeholder</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">Sky Dental</div>
+        <div class="socials">
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+            <a href="#">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script>
+        // =========================================
+        // SPA NAVIGATION LOGIC
+        // =========================================
+        function navigateTo(pageId) {
+            // 1. Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // 2. Show target page
+            const target = document.getElementById(pageId);
+            if(target) {
+                target.classList.add('active');
+                window.scrollTo(0,0);
+            }
+
+            // 3. Update Nav Active State
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                // Simple check if the onclick attribute contains the pageId
+                if(item.getAttribute('onclick').includes(pageId)) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        // =========================================
+        // PREFILL DOCTOR FROM TEAM PAGE
+        // =========================================
+        function prefillDoctor(doctorName) {
+            navigateTo('page-booking');
+            // Wait for page transition then set value
+            setTimeout(() => {
+                const select = document.getElementById('doctorSelect');
+                select.value = doctorName;
+            }, 100);
+        }
+
+        // =========================================
+        // BOOKING HANDLER
+        // =========================================
+        function handleBooking(e) {
+            e.preventDefault();
+            const doctor = document.getElementById('doctorSelect').value;
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerText;
+
+            btn.innerText = "Processing...";
+            btn.style.opacity = "0.7";
+
+            setTimeout(() => {
+                alert(`Thank you. Your request for ${doctor} has been sent.\nOur concierge will contact you shortly.`);
+                e.target.reset();
+                btn.innerText = originalText;
+                btn.style.opacity = "1";
+            }, 1500);
+        }
+
+        // =========================================
+        // SCROLL EFFECTS
+        // =========================================
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if(window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // GSAP Entry Animations (Re-triggered on page load)
+        gsap.utils.toArray('.section-header, .treatment-card, .doctor-card').forEach((element, i) => {
+            gsap.from(element, {
+                scrollTrigger: {
+                    trigger: element,
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                },
+                y: 30,
+                opacity: 0,
+                duration: 1,
+                delay: i * 0.1,
+                ease: "power3.out"
+            });
+        });
+
+    </script>
+</body>
+</html>
