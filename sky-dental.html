@@ -1,0 +1,4368 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sky Dental Center | Luxury Aesthetic Dentistry in Kuwait</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Cairo:wght@300;400;500;600;700&family=Noto+Serif+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-card: #1a1a1a;
+            --bg-card-hover: #222222;
+            --gold: #c9a84c;
+            --gold-light: #e0c97f;
+            --gold-dark: #a8872e;
+            --gold-gradient: linear-gradient(135deg, #c9a84c, #e0c97f, #c9a84c);
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --white: #ffffff;
+            --border: #333333;
+            --border-light: #444444;
+            --shadow-gold: 0 0 30px rgba(201, 168, 76, 0.15);
+            --shadow-gold-hover: 0 0 40px rgba(201, 168, 76, 0.3), 0 0 80px rgba(201, 168, 76, 0.1);
+            --font-display: 'Cinzel', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --font-ar: 'Cairo', 'Noto Serif Arabic', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --radius: 12px;
+            --radius-lg: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        html[dir="rtl"] body,
+        html[dir="rtl"] * {
+            font-family: var(--font-ar);
+        }
+
+        html[dir="rtl"] [style*="Cinzel"],
+        html[dir="rtl"] .font-cinzel {
+            font-family: var(--font-ar) !important;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== PRELOADER ===== */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: var(--bg-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        #preloader-text {
+            font-family: var(--font-display);
+            font-size: clamp(28px, 5vw, 56px);
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            opacity: 0;
+        }
+
+        #preloader-subtitle {
+            font-family: var(--font-body);
+            font-size: clamp(12px, 2vw, 16px);
+            color: var(--text-secondary);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            opacity: 0;
+        }
+
+        #preloader-canvas {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        /* ===== NAVBAR ===== */
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+            padding: 16px 0;
+            transition: var(--transition);
+            background: transparent;
+        }
+
+        #navbar.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 10px 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--gold);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .lang-toggle {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .lang-toggle:hover {
+            background: var(--gold);
+            color: var(--bg-primary);
+        }
+
+        .hiring-badge {
+            position: absolute;
+            top: -8px;
+            right: -12px;
+            background: var(--gold);
+            color: var(--bg-primary);
+            font-size: 8px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            animation: pulseBadge 2s ease-in-out infinite;
+        }
+
+        html[dir="rtl"] .hiring-badge {
+            right: auto;
+            left: -12px;
+        }
+
+        @keyframes pulseBadge {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 10001;
+            padding: 8px;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--gold);
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        #mobile-menu {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(10, 10, 10, 0.98);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        #mobile-menu.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .mobile-menu-inner {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            height: 100%;
+            padding: 40px;
+        }
+
+        .mobile-gold-line {
+            width: 2px;
+            height: 200px;
+            background: var(--gold-gradient);
+            border-radius: 1px;
+            flex-shrink: 0;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .mobile-nav-links a {
+            font-family: var(--font-display);
+            font-size: 28px;
+            color: var(--text-secondary);
+            opacity: 0;
+            transform: translateY(20px);
+            letter-spacing: 2px;
+        }
+
+        .mobile-nav-links a:hover {
+            color: var(--gold);
+        }
+
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+        }
+
+        /* ===== SECTIONS ===== */
+        .section {
+            padding: 100px 0;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(28px, 4vw, 44px);
+            font-weight: 600;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 60px;
+            line-height: 1.7;
+        }
+
+        .gold-divider {
+            width: 60px;
+            height: 2px;
+            background: var(--gold-gradient);
+            margin: 20px auto 30px;
+            border-radius: 1px;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border: none;
+            border-radius: var(--radius);
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: var(--bg-primary);
+        }
+
+        .btn-gold:hover {
+            background: var(--gold-light);
+            box-shadow: var(--shadow-gold-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+        }
+
+        .btn-outline:hover {
+            background: var(--gold);
+            color: var(--bg-primary);
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            border-color: var(--gold);
+            box-shadow: var(--shadow-gold-hover);
+            transform: translateY(-4px);
+            background: var(--bg-card-hover);
+        }
+
+        /* ===== HOME PAGE ===== */
+        .page { display: none; }
+        .page.active { display: block; }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center top, rgba(201,168,76,0.08) 0%, transparent 60%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 24px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border: 1px solid var(--gold);
+            border-radius: 30px;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(36px, 6vw, 72px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--white);
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 550px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: -60px;
+            position: relative;
+            z-index: 3;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 32px 16px;
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Treatments Grid */
+        .treatments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .treatment-card {
+            text-align: center;
+            padding: 40px 24px;
+        }
+
+        .treatment-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background: var(--gold-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .treatment-card h3 {
+            font-family: var(--font-display);
+            font-size: 20px;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+
+        .treatment-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Why Choose Us */
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .why-card {
+            padding: 36px;
+        }
+
+        .why-card .why-num {
+            font-family: var(--font-display);
+            font-size: 48px;
+            font-weight: 700;
+            color: rgba(201, 168, 76, 0.15);
+            margin-bottom: 12px;
+        }
+
+        .why-card h3 {
+            font-family: var(--font-display);
+            font-size: 18px;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+
+        .why-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Technology Showcase */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .tech-grid { grid-template-columns: 1fr; }
+        }
+
+        .tech-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 40px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .tech-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 30%, rgba(201,168,76,0.05) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .tech-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .tech-card:hover {
+            border-color: var(--gold);
+            box-shadow: var(--shadow-gold-hover);
+            transform: translateY(-4px);
+        }
+
+        .tech-card svg {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 20px;
+            color: var(--gold);
+        }
+
+        .tech-card h3 {
+            font-family: var(--font-display);
+            font-size: 20px;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .tech-card .tech-stat {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Process Steps */
+        .process-steps {
+            display: flex;
+            gap: 0;
+            align-items: flex-start;
+            justify-content: center;
+            position: relative;
+            flex-wrap: wrap;
+        }
+
+        .process-step {
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+            max-width: 250px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .process-step-num {
+            width: 56px;
+            height: 56px;
+            background: var(--gold);
+            color: var(--bg-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+
+        .process-step h3 {
+            font-family: var(--font-display);
+            font-size: 16px;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .process-step p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .process-line-container {
+            position: absolute;
+            top: 28px;
+            left: 15%;
+            right: 15%;
+            height: 2px;
+            z-index: 1;
+        }
+
+        .process-line {
+            width: 0%;
+            height: 100%;
+            background: var(--gold-gradient);
+            transition: width 0.1s linear;
+            border-radius: 1px;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .testimonial-card {
+            padding: 32px;
+        }
+
+        .testimonial-stars {
+            color: var(--gold);
+            font-size: 16px;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-card blockquote {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--gold-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--bg-primary);
+            font-size: 16px;
+        }
+
+        .testimonial-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .testimonial-role {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Patient of the Month */
+        .patient-month {
+            max-width: 700px;
+            margin: 0 auto;
+            border: 2px solid var(--gold);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            background: var(--bg-card);
+            position: relative;
+        }
+
+        .patient-month-inner {
+            display: flex;
+            gap: 32px;
+            padding: 40px;
+            align-items: center;
+        }
+
+        @media (max-width: 600px) {
+            .patient-month-inner { flex-direction: column; text-align: center; }
+        }
+
+        .patient-month-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+            object-fit: cover;
+            flex-shrink: 0;
+            background: var(--bg-secondary);
+        }
+
+        .patient-month-info h3 {
+            font-family: var(--font-display);
+            font-size: 22px;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .patient-month-treatment {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .patient-month-stars {
+            color: var(--gold);
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .patient-month-quote {
+            font-size: 15px;
+            color: var(--text-secondary);
+            font-style: italic;
+            line-height: 1.7;
+        }
+
+        /* Before / After */
+        .ba-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .ba-card {
+            overflow: hidden;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            transition: var(--transition);
+        }
+
+        .ba-card:hover {
+            border-color: var(--gold);
+            box-shadow: var(--shadow-gold-hover);
+        }
+
+        .ba-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .ba-label {
+            padding: 12px 16px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* FAQ */
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            border-color: rgba(201,168,76,0.3);
+        }
+
+        .faq-question {
+            padding: 20px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--text-primary);
+        }
+
+        .faq-question .faq-arrow {
+            transition: transform 0.3s ease;
+            color: var(--gold);
+            font-size: 18px;
+        }
+
+        .faq-item.open .faq-arrow {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 300px;
+            padding: 0 24px 20px;
+        }
+
+        .faq-answer p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ===== TREATMENTS PAGE ===== */
+        .treatments-page-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 24px;
+        }
+
+        .treatment-page-card {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .treatment-page-card .tpc-img {
+            height: 200px;
+            background: var(--bg-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .treatment-page-card .tpc-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(30%);
+            transition: filter 0.4s ease;
+        }
+
+        .treatment-page-card:hover .tpc-img img {
+            filter: grayscale(0%);
+        }
+
+        .treatment-page-card .tpc-body {
+            padding: 28px;
+        }
+
+        .treatment-page-card h3 {
+            font-family: var(--font-display);
+            font-size: 20px;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .treatment-page-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        /* ===== PHILOSOPHY PAGE ===== */
+        .philosophy-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .philosophy-content h3 {
+            font-family: var(--font-display);
+            font-size: 24px;
+            color: var(--gold);
+            margin-bottom: 16px;
+            margin-top: 40px;
+        }
+
+        .philosophy-content p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .philosophy-values {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .value-card {
+            text-align: center;
+            padding: 28px 20px;
+        }
+
+        .value-card .value-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .value-card h4 {
+            font-family: var(--font-display);
+            font-size: 16px;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .value-card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* ===== TEAM PAGE ===== */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .team-card {
+            text-align: center;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .team-card .tc-photo {
+            width: 100%;
+            height: 280px;
+            background: var(--bg-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-card .tc-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-card .tc-body {
+            padding: 24px;
+        }
+
+        .team-card h3 {
+            font-family: var(--font-display);
+            font-size: 18px;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .team-card .tc-role {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .team-card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ===== CONTACT PAGE ===== */
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+
+        @media (max-width: 768px) {
+            .contact-layout { grid-template-columns: 1fr; }
+        }
+
+        .contact-info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .contact-info-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .contact-info-item .cii-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(201,168,76,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .contact-info-item h4 {
+            font-size: 14px;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .contact-info-item p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Multi-step form */
+        .multi-step-form {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .form-step-title {
+            font-family: var(--font-display);
+            font-size: 18px;
+            color: var(--gold);
+            margin-bottom: 24px;
+        }
+
+        .form-progress {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+
+        .form-progress-bar {
+            flex: 1;
+            height: 3px;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .form-progress-bar .fill {
+            height: 100%;
+            background: var(--gold);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 14px;
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+
+        .form-confirmation {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .form-confirmation .check-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gold-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 16px;
+        }
+
+        .form-confirmation h3 {
+            font-family: var(--font-display);
+            font-size: 22px;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .form-confirmation p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* ===== BOOKING PAGE ===== */
+        .booking-wizard {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 48px;
+        }
+
+        .booking-step {
+            display: none;
+        }
+
+        .booking-step.active {
+            display: block;
+        }
+
+        .booking-step-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .step-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: var(--transition);
+        }
+
+        .step-dot.active {
+            background: var(--gold);
+            box-shadow: 0 0 12px rgba(201,168,76,0.4);
+        }
+
+        .step-dot.completed {
+            background: var(--gold-dark);
+        }
+
+        .step-line {
+            width: 40px;
+            height: 2px;
+            background: var(--border);
+        }
+
+        .step-line.completed {
+            background: var(--gold);
+        }
+
+        .booking-step h3 {
+            font-family: var(--font-display);
+            font-size: 22px;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .booking-step > p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+        }
+
+        #calendar {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .cal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .cal-header button {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--gold);
+            padding: 8px 14px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .cal-header button:hover {
+            background: var(--gold);
+            color: var(--bg-primary);
+        }
+
+        .cal-header .cal-month {
+            font-family: var(--font-display);
+            font-size: 18px;
+            color: var(--gold);
+        }
+
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            text-align: center;
+        }
+
+        .cal-grid .cal-day-name {
+            font-size: 12px;
+            color: var(--text-muted);
+            padding: 8px 0;
+            font-weight: 600;
+        }
+
+        .cal-grid .cal-day {
+            padding: 10px 0;
+            font-size: 14px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .cal-grid .cal-day:hover:not(.disabled):not(.empty) {
+            background: rgba(201,168,76,0.1);
+            color: var(--gold);
+        }
+
+        .cal-grid .cal-day.selected {
+            background: var(--gold);
+            color: var(--bg-primary);
+            font-weight: 600;
+        }
+
+        .cal-grid .cal-day.today {
+            border: 1px solid var(--gold);
+        }
+
+        .cal-grid .cal-day.disabled {
+            color: var(--text-muted);
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .cal-grid .cal-day.empty {
+            cursor: default;
+        }
+
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .time-slot {
+            padding: 10px;
+            text-align: center;
+            font-size: 13px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .time-slot:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .time-slot.selected {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--bg-primary);
+            font-weight: 600;
+        }
+
+        .booking-tips {
+            background: rgba(201,168,76,0.05);
+            border: 1px solid rgba(201,168,76,0.2);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-top: 24px;
+        }
+
+        .booking-tips h4 {
+            font-size: 14px;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .booking-tips p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .booking-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 32px;
+        }
+
+        /* ===== SMILE RATER PAGE ===== */
+        .smile-rater-container {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .rater-step {
+            display: none;
+        }
+
+        .rater-step.active {
+            display: block;
+        }
+
+        .rater-camera-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--gold-gradient);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            transition: var(--transition);
+            font-size: 32px;
+        }
+
+        .rater-camera-btn:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-gold-hover);
+        }
+
+        .camera-preview {
+            width: 300px;
+            height: 300px;
+            border-radius: var(--radius-lg);
+            border: 3px solid var(--gold);
+            overflow: hidden;
+            margin: 20px auto;
+            background: var(--bg-secondary);
+        }
+
+        .camera-preview video,
+        .camera-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .rater-result-card {
+            background: var(--bg-card);
+            border: 2px solid var(--gold);
+            border-radius: var(--radius-lg);
+            padding: 40px 32px;
+            text-align: center;
+            position: relative;
+        }
+
+        .rater-result-card.urgent-glow {
+            animation: urgentGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes urgentGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(201,168,76,0.3); }
+            50% { box-shadow: 0 0 50px rgba(201,168,76,0.6), 0 0 100px rgba(201,168,76,0.2); }
+        }
+
+        .result-stars {
+            font-size: 40px;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+
+        .result-title {
+            font-family: var(--font-display);
+            font-size: 24px;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .result-message {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .result-recommendation {
+            font-size: 14px;
+            color: var(--gold-light);
+            font-style: italic;
+            margin-bottom: 24px;
+        }
+
+        .camera-denied-msg {
+            background: rgba(201,168,76,0.05);
+            border: 1px solid rgba(201,168,76,0.2);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-top: 20px;
+        }
+
+        .camera-denied-msg p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* ===== GALLERY PAGE ===== */
+        .gallery-masonry {
+            columns: 3;
+            column-gap: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-masonry { columns: 2; }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-masonry { columns: 1; }
+        }
+
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 16px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover {
+            border-color: var(--gold);
+            box-shadow: var(--shadow-gold-hover);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            display: block;
+            filter: grayscale(20%);
+            transition: filter 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            filter: grayscale(0%);
+        }
+
+        .gallery-item .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(201,168,76,0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay span {
+            color: var(--white);
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: rgba(0,0,0,0.5);
+            padding: 8px 16px;
+            border-radius: var(--radius);
+        }
+
+        /* Lightbox */
+        #lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 99998;
+            background: rgba(0,0,0,0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        #lightbox.open {
+            display: flex;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: var(--radius);
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            background: rgba(201,168,76,0.2);
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .lightbox-close:hover {
+            background: var(--gold);
+            color: var(--bg-primary);
+        }
+
+        /* ===== COOKIE BAR ===== */
+        #cookie-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 9998;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border);
+            padding: 16px 24px;
+            display: none;
+        }
+
+        #cookie-bar.show {
+            display: block;
+        }
+
+        .cookie-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cookie-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+            flex: 1;
+        }
+
+        .cookie-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .cookie-learn-more {
+            font-size: 13px;
+            color: var(--gold);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .cookie-accept {
+            padding: 8px 20px;
+            background: var(--gold);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: var(--radius);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .cookie-accept:hover {
+            background: var(--gold-light);
+        }
+
+        /* ===== AI CHATBOT ===== */
+        #chatbot-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9997;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--gold-gradient);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(201,168,76,0.3);
+            transition: var(--transition);
+        }
+
+        #chatbot-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 30px rgba(201,168,76,0.5);
+        }
+
+        #chatbot-btn svg {
+            width: 26px;
+            height: 26px;
+            fill: var(--bg-primary);
+        }
+
+        #chatbot-panel {
+            position: fixed;
+            bottom: 90px;
+            right: 24px;
+            z-index: 9997;
+            width: 340px;
+            max-height: 480px;
+            background: var(--bg-card);
+            border: 1px solid var(--gold);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+            box-shadow: var(--shadow-gold-hover);
+        }
+
+        #chatbot-panel.open {
+            display: flex;
+        }
+
+        .chat-header {
+            padding: 16px 20px;
+            background: rgba(201,168,76,0.1);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h3 {
+            font-family: var(--font-display);
+            font-size: 16px;
+            color: var(--gold);
+        }
+
+        .chat-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px;
+            line-height: 1;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 340px;
+            min-height: 200px;
+        }
+
+        .chat-msg {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: var(--radius);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .chat-msg.user {
+            align-self: flex-end;
+            background: var(--white);
+            color: var(--bg-primary);
+        }
+
+        .chat-msg.assistant {
+            align-self: flex-start;
+            background: rgba(201,168,76,0.15);
+            color: var(--text-primary);
+            border: 1px solid rgba(201,168,76,0.2);
+        }
+
+        .chat-loading {
+            align-self: flex-start;
+            display: flex;
+            gap: 4px;
+            padding: 10px 14px;
+        }
+
+        .chat-loading span {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: chatDot 1.4s ease-in-out infinite;
+        }
+
+        .chat-loading span:nth-child(2) { animation-delay: 0.2s; }
+        .chat-loading span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes chatDot {
+            0%, 100% { opacity: 0.3; transform: translateY(0); }
+            50% { opacity: 1; transform: translateY(-4px); }
+        }
+
+        .chat-input-area {
+            padding: 12px 16px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 10px 14px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text-primary);
+            font-size: 13px;
+            outline: none;
+        }
+
+        .chat-input-area input:focus {
+            border-color: var(--gold);
+        }
+
+        .chat-send-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gold);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-primary);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .chat-send-btn:hover {
+            background: var(--gold-light);
+        }
+
+        /* ===== BACK TO TOP ===== */
+        #back-to-top {
+            position: fixed;
+            bottom: 90px;
+            left: 24px;
+            z-index: 9996;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+
+        html[dir="rtl"] #back-to-top {
+            left: auto;
+            right: 90px;
+        }
+
+        #back-to-top.visible {
+            display: flex;
+        }
+
+        #back-to-top.pulse {
+            animation: pulseTop 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseTop {
+            0%, 100% { box-shadow: none; }
+            50% { box-shadow: 0 0 20px rgba(201,168,76,0.4); }
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 60px 0 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 2fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-display);
+            font-size: 16px;
+            color: var(--gold);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .footer-col p,
+        .footer-col a {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .footer-col a:hover {
+            color: var(--gold);
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(201,168,76,0.1);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 10px 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text-primary);
+            font-size: 13px;
+            outline: none;
+        }
+
+        .newsletter-form input:focus {
+            border-color: var(--gold);
+        }
+
+        .newsletter-form button {
+            padding: 10px 18px;
+            background: var(--gold);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: var(--radius);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--gold-light);
+        }
+
+        .footer-bottom {
+            margin-top: 40px;
+            padding: 20px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* ===== CONFETTI ===== */
+        .confetti-container {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            pointer-events: none;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        /* ===== RTL ===== */
+        html[dir="rtl"] {
+            text-align: right;
+        }
+
+        html[dir="rtl"] .nav-links a::after {
+            left: auto;
+            right: 0;
+        }
+
+        html[dir="rtl"] .faq-question {
+            flex-direction: row-reverse;
+        }
+
+        html[dir="rtl"] .form-actions {
+            justify-content: flex-start;
+        }
+
+        html[dir="rtl"] .booking-nav {
+            flex-direction: row-reverse;
+        }
+
+        html[dir="rtl"] #chatbot-panel {
+            right: auto;
+            left: 24px;
+        }
+
+        html[dir="rtl"] #chatbot-btn {
+            right: auto;
+            left: 24px;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold-dark);
+            border-radius: 3px;
+        }
+
+        /* Utility */
+        .text-center { text-align: center; }
+        .mt-20 { margin-top: 20px; }
+        .mt-40 { margin-top: 40px; }
+        .mb-20 { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+<!-- ===== PRELOADER ===== -->
+<div id="preloader">
+    <canvas id="preloader-canvas"></canvas>
+    <div id="preloader-text">SKY DENTAL</div>
+    <div id="preloader-subtitle" data-key="preloader_subtitle">Luxury Aesthetic Dentistry</div>
+</div>
+
+<!-- ===== NAVBAR ===== -->
+<nav id="navbar">
+    <div class="container nav-inner">
+        <a href="#" class="nav-logo" data-key="nav_logo">SKY DENTAL</a>
+        <ul class="nav-links">
+            <li><a href="#home" class="active" data-page="home" data-key="nav_home">Home</a></li>
+            <li><a href="#treatments" data-page="treatments" data-key="nav_treatments">Treatments</a></li>
+            <li><a href="#gallery" data-page="gallery" data-key="nav_gallery">Gallery</a></li>
+            <li><a href="#booking" data-page="booking" data-key="nav_booking">Book Now</a></li>
+            <li><a href="#simulate" data-page="simulate" data-key="nav_simulate">Rate Smile</a></li>
+            <li style="position:relative;">
+                <a href="#team" data-page="team" data-key="nav_team">Our Team</a>
+                <span class="hiring-badge" data-key="nav_hiring">HIRING</span>
+            </li>
+            <li><a href="#philosophy" data-page="philosophy" data-key="nav_philosophy">Philosophy</a></li>
+            <li><a href="#contact" data-page="contact" data-key="nav_contact">Contact</a></li>
+        </ul>
+        <div class="nav-right">
+            <button class="lang-toggle" id="lang-toggle" onclick="toggleLanguage()">AR</button>
+            <div class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- ===== MOBILE MENU ===== -->
+<div id="mobile-menu">
+    <div class="mobile-menu-inner">
+        <div class="mobile-gold-line"></div>
+        <ul class="mobile-nav-links">
+            <li><a href="#home" data-page="home" data-key="nav_home" onclick="closeMobileMenu()">Home</a></li>
+            <li><a href="#treatments" data-page="treatments" data-key="nav_treatments" onclick="closeMobileMenu()">Treatments</a></li>
+            <li><a href="#gallery" data-page="gallery" data-key="nav_gallery" onclick="closeMobileMenu()">Gallery</a></li>
+            <li><a href="#booking" data-page="booking" data-key="nav_booking" onclick="closeMobileMenu()">Book Now</a></li>
+            <li><a href="#simulate" data-page="simulate" data-key="nav_simulate" onclick="closeMobileMenu()">Rate Smile</a></li>
+            <li><a href="#team" data-page="team" data-key="nav_team" onclick="closeMobileMenu()">Our Team</a></li>
+            <li><a href="#philosophy" data-page="philosophy" data-key="nav_philosophy" onclick="closeMobileMenu()">Philosophy</a></li>
+            <li><a href="#contact" data-page="contact" data-key="nav_contact" onclick="closeMobileMenu()">Contact</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- ============================== -->
+<!-- ===== HOME PAGE ===== -->
+<!-- ============================== -->
+<div class="page active" id="page-home">
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-badge" data-key="hero_badge">Welcome to Sky Dental</div>
+            <h1 data-key="hero_title">Where Every <span>Smile</span> Becomes a Masterpiece</h1>
+            <p data-key="hero_subtitle">Experience world-class aesthetic dentistry in the heart of Kuwait City. Your journey to the perfect smile begins here.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-gold" onclick="navigateTo('booking')" data-key="hero_btn_book">Book Consultation</button>
+                <button class="btn btn-outline" onclick="navigateTo('treatments')" data-key="hero_btn_treatments">Our Treatments</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="container">
+        <div class="stats-grid">
+            <div class="card stat-card">
+                <div class="stat-number" data-count="1247" data-suffix="+">0+</div>
+                <div class="stat-label" data-key="stat_patients">Happy Patients</div>
+            </div>
+            <div class="card stat-card">
+                <div class="stat-number" data-count="15" data-suffix="+">0+</div>
+                <div class="stat-label" data-key="stat_experience">Years Experience</div>
+            </div>
+            <div class="card stat-card">
+                <div class="stat-number" data-count="8" data-suffix="">0</div>
+                <div class="stat-label" data-key="stat_specialists">Expert Specialists</div>
+            </div>
+            <div class="card stat-card">
+                <div class="stat-number" data-count="98" data-suffix="%">0%</div>
+                <div class="stat-label" data-key="stat_satisfaction">Satisfaction Rate</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Treatments Preview -->
+    <section class="section" id="home-treatments">
+        <div class="container">
+            <h2 class="section-title" data-key="home_treat_title">Our Signature Treatments</h2>
+            <div class="gold-divider"></div>
+            <p class="section-subtitle" data-key="home_treat_subtitle">Discover our range of premium dental treatments designed to give you the smile you deserve.</p>
+            <div class="treatments-grid">
+                <div class="card treatment-card">
+                    <div class="treatment-icon">✦</div>
+                    <h3 data-key="treat_veneers">Porcelain Veneers</h3>
+                    <p data-key="treat_veneers_desc">Transform your smile with ultra-thin porcelain shells crafted to perfection.</p>
+                </div>
+                <div class="card treatment-card">
+                    <div class="treatment-icon">◇</div>
+                    <h3 data-key="treat_whitening">Teeth Whitening</h3>
+                    <p data-key="treat_whitening_desc">Professional whitening that reveals your brightest, most confident smile.</p>
+                </div>
+                <div class="card treatment-card">
+                    <div class="treatment-icon">⬡</div>
+                    <h3 data-key="treat_implants">Dental Implants</h3>
+                    <p data-key="treat_implants_desc">Permanent, natural-looking tooth replacement with titanium precision.</p>
+                </div>
+                <div class="card treatment-card">
+                    <div class="treatment-icon">◎</div>
+                    <h3 data-key="treat_invisalign">Invisalign</h3>
+                    <p data-key="treat_invisalign_desc">Invisible orthodontics for a straighter smile without metal braces.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="section" id="home-why">
+        <div class="container">
+            <h2 class="section-title" data-key="home_why_title">Why Choose Sky Dental</h2>
+            <div class="gold-divider"></div>
+            <p class="section-subtitle" data-key="home_why_subtitle">We combine cutting-edge technology with personalized care for unmatched results.</p>
+            <div class="why-grid">
+                <div class="card why-card">
+                    <div class="why-num">01</div>
+                    <h3 data-key="why_luxury_title">Luxury Experience</h3>
+                    <p data-key="why_luxury_desc">Step into an environment designed for comfort and relaxation. Every detail is curated for your wellbeing.</p>
+                </div>
+                <div class="card why-card">
+                    <div class="why-num">02</div>
+                    <h3 data-key="why_expertise_title">World-Class Expertise</h3>
+                    <p data-key="why_expertise_desc">Our internationally trained specialists bring decades of combined experience to every procedure.</p>
+                </div>
+                <div class="card why-card">
+                    <div class="why-num">03</div>
+                    <h3 data-key="why_tech_title">Advanced Technology</h3>
+                    <p data-key="why_tech_desc">State-of-the-art equipment ensures precision, comfort, and superior results every time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Showcase -->
+    <section class="section" id="home-tech">
+        <div class="container">
+            <h2 class="section-title" data-key="home_tech_title">Our Technology</h2>
+            <div class="gold-divider"></div>
+            <p class="section-subtitle" data-key="home_tech_subtitle">Investing in the latest dental technology for your comfort and results.</p>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="8" y="12" width="48" height="36" rx="4"/>
+                        <path d="M20 24 L44 24 L40 40 L16 40 Z"/>
+                        <circle cx="32" cy="32" r="6"/>
+                        <line x1="24" y1="48" x2="24" y2="56"/>
+                        <line x1="40" y1="48" x2="40" y2="56"/>
+                        <line x1="16" y1="56" x2="48" y2="56"/>
+                    </svg>
+                    <h3 data-key="tech_3d_title">3D Scanning</h3>
+                    <p class="tech-stat" data-key="tech_3d_stat">Precise digital impressions in under 3 minutes</p>
+                </div>
+                <div class="tech-card">
+                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="32" y1="8" x2="32" y2="56"/>
+                        <line x1="8" y1="32" x2="56" y2="32"/>
+                        <circle cx="32" cy="32" r="20"/>
+                        <circle cx="32" cy="32" r="4" fill="currentColor"/>
+                        <line x1="32" y1="12" x2="32" y2="28"/>
+                    </svg>
+                    <h3 data-key="tech_laser_title">Laser Therapy</h3>
+                    <p class="tech-stat" data-key="tech_laser_stat">Pain-free procedures with faster recovery</p>
+                </div>
+                <div class="tech-card">
+                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="12" y="8" width="40" height="48" rx="4"/>
+                        <rect x="18" y="14" width="28" height="24" rx="2"/>
+                        <path d="M24 46 L32 38 L40 46"/>
+                        <circle cx="32" cy="26" r="6"/>
+                    </svg>
+                    <h3 data-key="tech_xray_title">Digital X-Ray</h3>
+                    <p class="tech-stat" data-key="tech_xray_stat">90% less radiation than traditional X-rays</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section class="section" id="home-process">
+        <div class="container">
+            <h2 class="section-title" data-key="home_process_title">Your Journey</h2>
+            <div class="gold-divider"></div>
+            <p class="section-subtitle" data-key="home_process_subtitle">From first consultation to your perfect smile — we guide you every step.</p>
+            <div class="process-steps" id="process-steps-container">
+                <div class="process-line-container">
+                    <div class="process-line" id="process-line"></div>
+                </div>
+                <div class="process-step">
+                    <div class="process-step-num">1</div>
+                    <h3 data-key="process_consult_title">Consultation</h3>
+                    <p data-key="process_consult_desc">Meet our specialists for a personalized assessment and treatment plan.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-step-num">2</div>
+                    <h3 data-key="process_plan_title">Custom Plan</h3>
+                    <p data-key="process_plan_desc">We design a bespoke treatment roadmap tailored to your goals.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-step-num">3</div>
+                    <h3 data-key="process_treat_title">Treatment</h3>
+                    <p data-key="process_treat_desc">Expert care using the latest technology in our luxury clinic.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-step-num">4</div>
+                    <h3 data-key="process_smile_title">Perfect Smile</h3>
+                    <p data-key="process_smile_desc">Reveal your stunning new smile with confidence and pride.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section" id="home-testimonials">
+        <div class="container">
+            <h2 class="section-title" data-key="home_test_title">What Our Patients Say</h2>
+            <div class="gold-divider"></div>
+            <p class="section-subtitle" data-key="home_test_subtitle">Real stories from real smiles.</p>
+            <div class="testimonials-grid">
+                <div class="card testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <blockquote data-key="test_1_quote">"Sky Dental completely transformed my smile. The team made me feel like royalty from the moment I walked in. I can't stop smiling now!"</blockquote>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">F</div>
+                        <div>
+                            <div class="testimonial-name" data-key="test_1_name">Fatima Al-Sabah</div>
+                            <div class="testimonial-role" data-key="test_1_role">Veneer Patient</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <blockquote data-key="test_2_quote">"The professionalism and attention to detail at Sky Dental is unmatched. My dental implants look and feel completely natural."</blockquote>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">A</div>
+                        <div>
+                            <div class="testimonial-name" data-key="test_2_name">Ahmed Al-Rashidi</div>
+                            <div class="testimonial-role" data-key="test_2_role">Implant Patient</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <blockquote data-key="test_3_quote">"I was nervous about Invisalign but the team made the entire process comfortable and exciting. The results exceeded my expectations!"</blockquote>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">N</div>
+                        <div>
+                            <div class="testimonial-name" data-key="test_3_name">Noura Al-Hamad</div>
+                            <div class="testimonial-role" data-key="test_3_role">Invisalign Patient</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Patient of the Month -->
+    <section class="section" id="home-patient-month">
+        <div class="container">
+            <h2 class="section-title" data-key="home_potm_title">Patient of the Month</h2>
+            <div class="gold-divider"></div>
+            <div class="patient-month">
+                <div class="patient-month-inner">
+                    <div class="patient-month-photo" style="background: linear-gradient(135deg, #1a1a1a, #333); display:flex; align-items:center; justify-content:center; font-size:48px; color:var(--gold);">✦</div>
+                    <div class="patient-month-info">
+                        <h3 data-key="potm_name">Sara Al-Mutawa</h3>
+                        <div class="patient-month-treatment" data-key="potm_treatment">Full Smile Makeover</div>
+                        <div class="patient-month-stars">★★★★★</div>
+                        <p class="patient-month-quote" data-key="potm_quote">"Sky Dental didn't just fix my teeth — they gave me a new lease on life. Every visit felt like a spa day. I genuinely look forward to showing off my smile wherever I go."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Before / After -->
+    <section class="section" id="home-before-after">
+        <div class="container">
+            <h2 class="section-title" data-key="home_ba_title">Before & After</h2>
+            <div class="gold-divider"></div>
+            <p class="section-subtitle" data-key="home_ba_subtitle">See the stunning transformations achieved at Sky Dental.</p>
+            <div class="ba-grid">
+                <div class="ba-card">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='400' height='200' fill='%231a1a1a'/%3E%3Ctext x='200' y='105' text-anchor='middle' fill='%23333' font-size='14'%3EBefore - Placeholder%3C/text%3E%3C/svg%3E" alt="Before">
+                    <div class="ba-label" data-key="ba_veneers_label">Veneers Transformation</div>
+                </div>
+                <div class="ba-card">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='400' height='200' fill='%231a1a1a'/%3E%3Ctext x='200' y='105' text-anchor='middle' fill='%23c9a84c' font-size='14'%3EAfter - Placeholder%3C/text%3E%3C/svg%3E" alt="After">
+                    <div class="ba-label" data-key="ba_whitening_label">Whitening Result</div>
+                </div>
+                <div class="ba-card">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='400' height='200' fill='%231a1a1a'/%3E%3Ctext x='200' y='105' text-anchor='middle' fill='%23333' font-size='14'%3EBefore - Placeholder%3C/text%3E%3C/svg%3E" alt="Before">
+                    <div class="ba-label" data-key="ba_implant_label">Dental Implant</div>
+                </div>
+                <div class="ba-card">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='400' height='200' fill='%231a1a1a'/%3E%3Ctext x='200' y='105' text-anchor='middle' fill='%23c9a84c' font-size='14'%3EAfter - Placeholder%3C/text%3E%3C/svg%3E" alt="After">
+                    <div class="ba-label" data-key="ba_invisalign_label">Invisalign Result</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="home-faq">
+        <div class="container">
+            <h2 class="section-title" data-key="home_faq_title">Frequently Asked Questions</h2>
+            <div class="gold-divider"></div>
+            <div class="faq-list">
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span data-key="faq_1_q">What makes Sky Dental different from other clinics?</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-key="faq_1_a">Sky Dental combines luxury hospitality with world-class dental expertise. Our state-of-the-art technology, internationally trained specialists, and personalized approach ensure an experience unlike any other dental clinic in Kuwait.</p>
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span data-key="faq_2_q">How do I book an appointment?</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-key="faq_2_a">You can book online through our website's booking system, call us at +965 2222 0000, or visit us at our clinic in Kuwait City. Our online booking system allows you to choose your preferred date and time easily.</p>
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span data-key="faq_3_q">Do you accept insurance?</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-key="faq_3_a">Yes, we work with most major insurance providers in Kuwait. Contact our front desk with your insurance details and we'll verify your coverage before your appointment.</p>
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span data-key="faq_4_q">Is teeth whitening safe?</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-key="faq_4_a">Absolutely. Our professional whitening treatments are supervised by experienced dentists and use clinically proven methods. We customize the treatment intensity based on your enamel health to ensure safe, stunning results.</p>
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span data-key="faq_5_q">What are your operating hours?</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-key="faq_5_a">We are open Saturday to Wednesday from 9:00 AM to 10:00 PM, Thursday from 9:00 AM to 8:00 PM. We are closed on Fridays. Emergency dental services are available by calling our hotline.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section" id="home-cta">
+        <div class="container text-center">
+            <h2 class="section-title" data-key="home_cta_title">Ready for Your Transformation?</h2>
+            <div class="gold-divider"></div>
+            <p class="section-subtitle" data-key="home_cta_subtitle">Take the first step towards your dream smile today.</p>
+            <button class="btn btn-gold" onclick="navigateTo('booking')" data-key="home_cta_btn">Schedule Your Visit</button>
+        </div>
+    </section>
+
+</div>
+
+<!-- ============================== -->
+<!-- ===== TREATMENTS PAGE ===== -->
+<!-- ============================== -->
+<div class="page" id="page-treatments">
+    <section class="section" style="padding-top:140px;">
+        <div class="container">
+            <h2 class="section-title" data-key="treat_page_title">Our Treatments</h2>
+            <div class="gold-divider"></div>
+            <p class="section-subtitle" data-key="treat_page_subtitle">Comprehensive dental care with a focus on aesthetics and comfort.</p>
+            <div class="treatments-page-grid">
+                <div class="card treatment-page-card">
+                    <div class="tpc-img" style="display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:40px;background:linear-gradient(135deg,var(--bg-secondary),var(--bg-card));">✦</div>
+                    <div class="tpc-body">
+                        <h3 data-key="tpc_veneers">Porcelain Veneers</h3>
+                        <p data-key="tpc_veneers_desc">Ultra-thin, custom-crafted porcelain shells that cover imperfections and create a flawless, natural-looking smile. Each veneer is handcrafted by our master ceramists.</p>
+                        <button class="btn btn-outline" onclick="navigateTo('booking')" data-key="tpc_book">Book Now</button>
+                    </div>
+                </div>
+                <div class="card treatment-page-card">
+                    <div class="tpc-img" style="display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:40px;background:linear-gradient(135deg,var(--bg-secondary),var(--bg-card));">◇</div>
+                    <div class="tpc-body">
+                        <h3 data-key="tpc_whitening">Professional Whitening</h3>
+                        <p data-key="tpc_whitening_desc">In-office and take-home whitening options that safely brighten your teeth by up to 8 shades. We use advanced LED-accelerated technology for fast, lasting results.</p>
+                        <button class="btn btn-outline" onclick="navigateTo('booking')" data-key="tpc_book">Book Now</button>
+                    </div>
+                </div>
+                <div class="card treatment-page-card">
+                    <div class="tpc-img" style="display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:40px;background:linear-gradient(135deg,var(--bg-secondary),var(--bg-card));">⬡</div>
+                    <div class="tpc-body">
+                        <h3 data-key="tpc_implants">Dental Implants</h3>
+                        <p data-key="tpc_implants_desc">Premium titanium implants with guided surgery for precise placement. Our 3D planning ensures optimal results with minimal discomfort and faster healing.</p>
+                        <button class="btn btn-outline" onclick="navigateTo('booking')" data-key="tpc_book">Book Now</button>
+                    </div>
+                </div>
+                <div class="card treatment-page-card">
+                    <div class="tpc-img" style="display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:40px;background:linear-gradient(135deg,var(--bg-secondary),var(--bg-card));">◎</div>
+                    <div class="tpc-body">
+                        <h3 data-key="tpc_invisalign">Invisalign Clear Aligners</h3>
+                        <p data-key="tpc_invisalign_desc">Virtually invisible orthodontic treatment for straightening teeth. Custom aligners are replaced every 2 weeks, gradually shifting your teeth into perfect alignment.</p>
+                        <button class="btn btn-outline" onclick="navigateTo('booking')" data-key="tpc_book">Book Now</button>
+                    </div>
+                </div>
+                <div class="card treatment-page-card">
+                    <div class="tpc-img" style="display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:40px;background:linear-gradient(135deg,var(--bg-secondary),var(--bg-card));">◈</div>
+                    <div class="tpc-body">
+                        <h3 data-key="tpc_crowns">Dental Crowns & Bridges</h3>
+                        <p data-key="tpc_crowns_desc">Same-day crowns using CEREC technology and high-quality zirconia or porcelain. Restore damaged teeth with crowns that look and feel completely natural.</p>
+                        <button class="btn btn-outline" onclick="navigateTo('booking')" data-key="tpc_book">Book Now</button>
+                    </div>
+                </div>
+                <div class="card treatment-page-card">
+                    <div class="tpc-img" style="display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:40px;background:linear-gradient(135deg,var(--bg-secondary),var(--bg-card));">❖</div>
+                    <div class="tpc-body">
+                        <h3 data-key="tpc_smile">Smile Makeover</h3>
+                        <p data-key="tpc_smile_desc">A comprehensive combination of treatments tailored to completely transform your smile. Includes digital smile design preview so you see the result before treatment begins.</p>
+                        <button class="btn btn-outline" onclick="navigateTo('booking')" data-key="tpc_book">Book Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ============================== -->
+<!-- ===== GALLERY PAGE ===== -->
+<!-- ============================== -->
+<div class="page" id="page-gallery">
+    <section class="section" style="padding-top:140px;">
+        <div class="container">
+            <h2 class="section-title" data-key="gallery_title">Smile Gallery</h2>
+            <div class="gold-divider"></div>
+            <p class="section-subtitle" data-key="gallery_subtitle">Explore our portfolio of beautiful smile transformations.</p>
+            <div class="gallery-masonry" id="gallery-grid">
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231a1a1a'/%3E%3Ctext x='200' y='155' text-anchor='middle' fill='%23333' font-size='14'%3EBefore%3C/text%3E%3C/svg%3E" alt="Gallery 1">
+                    <div class="gallery-overlay"><span data-key="gallery_1_label">Veneers</span></div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500'%3E%3Crect width='400' height='500' fill='%231a1a1a'/%3E%3Ctext x='200' y='255' text-anchor='middle' fill='%23c9a84c' font-size='14'%3EAfter%3C/text%3E%3C/svg%3E" alt="Gallery 2">
+                    <div class="gallery-overlay"><span data-key="gallery_2_label">Whitening</span></div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250'%3E%3Crect width='400' height='250' fill='%231a1a1a'/%3E%3Ctext x='200' y='130' text-anchor='middle' fill='%23333' font-size='14'%3EBefore%3C/text%3E%3C/svg%3E" alt="Gallery 3">
+                    <div class="gallery-overlay"><span data-key="gallery_3_label">Implants</span></div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect width='400' height='400' fill='%231a1a1a'/%3E%3Ctext x='200' y='205' text-anchor='middle' fill='%23c9a84c' font-size='14'%3EAfter%3C/text%3E%3C/svg%3E" alt="Gallery 4">
+                    <div class="gallery-overlay"><span data-key="gallery_4_label">Makeover</span></div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='350'%3E%3Crect width='400' height='350' fill='%231a1a1a'/%3E%3Ctext x='200' y='180' text-anchor='middle' fill='%23333' font-size='14'%3EBefore%3C/text%3E%3C/svg%3E" alt="Gallery 5">
+                    <div class="gallery-overlay"><span data-key="gallery_5_label">Invisalign</span></div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='280'%3E%3Crect width='400' height='280' fill='%231a1a1a'/%3E%3Ctext x='200' y='145' text-anchor='middle' fill='%23c9a84c' font-size='14'%3EAfter%3C/text%3E%3C/svg%3E" alt="Gallery 6">
+                    <div class="gallery-overlay"><span data-key="gallery_6_label">Crowns</span></div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='320'%3E%3Crect width='400' height='320' fill='%231a1a1a'/%3E%3Ctext x='200' y='165' text-anchor='middle' fill='%23333' font-size='14'%3EBefore%3C/text%3E%3C/svg%3E" alt="Gallery 7">
+                    <div class="gallery-overlay"><span data-key="gallery_7_label">Bonding</span></div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='450'%3E%3Crect width='400' height='450' fill='%231a1a1a'/%3E%3Ctext x='200' y='230' text-anchor='middle' fill='%23c9a84c' font-size='14'%3EAfter%3C/text%3E%3C/svg%3E" alt="Gallery 8">
+                    <div class="gallery-overlay"><span data-key="gallery_8_label">Full Makeover</span></div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='260'%3E%3Crect width='400' height='260' fill='%231a1a1a'/%3E%3Ctext x='200' y='135' text-anchor='middle' fill='%23333' font-size='14'%3EBefore%3C/text%3E%3C/svg%3E" alt="Gallery 9">
+                    <div class="gallery-overlay"><span data-key="gallery_9_label">Veneers</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ===== LIGHTBOX ===== -->
+<div id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" src="" alt="Gallery Full">
+</div>
+
+<!-- ============================== -->
+<!-- ===== BOOKING PAGE ===== -->
+<!-- ============================== -->
+<div class="page" id="page-booking">
+    <section class="section" style="padding-top:140px;">
+        <div class="container">
+            <h2 class="section-title" data-key="booking_page_title">Book Your Appointment</h2>
+            <div class="gold-divider"></div>
+            <p class="section-subtitle" data-key="booking_page_subtitle">Schedule your consultation in just a few simple steps.</p>
+            <div class="booking-wizard">
+                <div class="booking-step-indicator" id="booking-indicator">
+                    <div class="step-dot active" data-step="0"></div>
+                    <div class="step-line"></div>
+                    <div class="step-dot" data-step="1"></div>
+                    <div class="step-line"></div>
+                    <div class="step-dot" data-step="2"></div>
+                    <div class="step-line"></div>
+                    <div class="step-dot" data-step="3"></div>
+                </div>
+
+                <!-- Step 1: Service -->
+                <div class="booking-step active" id="bstep-0">
+                    <h3 data-key="booking_step1_title">Select Your Treatment</h3>
+                    <p data-key="booking_step1_desc">Choose the treatment you're interested in.</p>
+                    <div class="form-group">
+                        <label data-key="booking_service_label">Treatment</label>
+                        <select id="booking-service">
+                            <option value="" data-key="booking_select">Select a treatment...</option>
+                            <option value="veneers" data-key="opt_veneers">Porcelain Veneers</option>
+                            <option value="whitening" data-key="opt_whitening">Teeth Whitening</option>
+                            <option value="implants" data-key="opt_implants">Dental Implants</option>
+                            <option value="invisalign" data-key="opt_invisalign">Invisalign</option>
+                            <option value="crowns" data-key="opt_crowns">Crowns & Bridges</option>
+                            <option value="makeover" data-key="opt_makeover">Smile Makeover</option>
+                            <option value="consultation" data-key="opt_consultation">General Consultation</option>
+                        </select>
+                    </div>
+                    <div class="booking-nav">
+                        <div></div>
+                        <button class="btn btn-gold" onclick="nextBookingStep()" data-key="booking_next">Next</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Date & Time -->
+                <div class="booking-step" id="bstep-1">
+                    <h3 data-key="booking_step2_title">Choose Date & Time</h3>
+                    <p data-key="booking_step2_desc">Pick your preferred appointment date and time.</p>
+                    <div id="calendar"></div>
+                    <h4 style="font-size:14px;color:var(--gold);margin-bottom:12px;" data-key="booking_time_label">Available Times</h4>
+                    <div class="time-slots" id="time-slots">
+                        <div class="time-slot" onclick="selectTimeSlot(this)">9:00 AM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">10:00 AM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">11:00 AM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">1:00 PM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">2:00 PM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">4:00 PM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">6:00 PM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">8:00 PM</div>
+                        <div class="time-slot" onclick="selectTimeSlot(this)">9:00 PM</div>
+                    </div>
+                    <div class="booking-nav">
+                        <button class="btn btn-outline" onclick="prevBookingStep()" data-key="booking_prev">Previous</button>
+                        <button class="btn btn-gold" onclick="nextBookingStep()" data-key="booking_next">Next</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Personal Info -->
+                <div class="booking-step" id="bstep-2">
+                    <h3 data-key="booking_step3_title">Your Information</h3>
+                    <p data-key="booking_step3_desc">Please provide your contact details.</p>
+                    <div class="form-group">
+                        <label data-key="booking_name_label">Full Name</label>
+                        <input type="text" id="booking-name" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label data-key="booking_phone_label">Phone Number</label>
+                        <input type="tel" id="booking-phone" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label data-key="booking_email_label">Email Address</label>
+                        <input type="email" id="booking-email" placeholder="">
+                    </div>
+                    <div class="booking-nav">
+                        <button class="btn btn-outline" onclick="prevBookingStep()" data-key="booking_prev">Previous</button>
+                        <button class="btn btn-gold" onclick="nextBookingStep()" data-key="booking_next">Next</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Confirmation -->
+                <div class="booking-step" id="bstep-3">
+                    <h3 data-key="booking_step4_title">Confirm Your Booking</h3>
+                    <p data-key="booking_step4_desc">Review your appointment details below.</p>
+                    <div style="background:var(--bg-secondary);border-radius:var(--radius);padding:20px;margin-bottom:24px;">
+                        <div id="booking-summary"></div>
+                    </div>
+                    <div class="booking-tips">
+                        <h4 data-key="booking_tips_title">💡 Tips for Your Visit</h4>
+                        <p data-key="booking_tips_desc">Please arrive 10 minutes early. Bring any previous dental records or X-rays. If you need to reschedule, please call us at least 24 hours in advance.</p>
+                    </div>
+                    <div class="booking-nav">
+                        <button class="btn btn-outline" onclick="prevBookingStep()" data-key="booking_prev">Previous</button>
+                        <button class="btn btn-gold" onclick="confirmBooking()" data-key="booking_confirm">Confirm Booking</button>
+                    </div>
+                </div>
+
+                <!-- Success -->
+                <div class="booking-step" id="bstep-success">
+                    <div class="form-confirmation">
+                        <div class="check-icon">✓</div>
+                        <h3 data-key="booking_success_title">Booking Confirmed!</h3>
+                        <p data-key="booking_success_desc">We'll send a confirmation to your email shortly. We look forward to seeing you at Sky Dental!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ============================== -->
+<!-- ===== SMILE RATER PAGE ===== -->
+<!-- ============================== -->
+<div class="page" id="page-simulate">
+    <section class="section" style="padding-top:140px;">
+        <div class="container">
+            <h2 class="section-title" data-key="rater_title">Rate Your Smile</h2>
+            <div class="gold-divider"></div>
+            <p class="section-subtitle" data-key="rater_subtitle">Let our AI analyze your smile and provide personalized feedback.</p>
+            <div class="smile-rater-container">
+
+                <!-- Step 1: Camera -->
+                <div class="rater-step active" id="rater-step-1">
+                    <button class="rater-camera-btn" onclick="startCamera()">📷</button>
+                    <h3 style="font-family:var(--font-display);font-size:20px;color:var(--gold);margin-bottom:8px;" data-key="rater_camera_btn">Take a Smile Photo</h3>
+                    <p style="font-size:14px;color:var(--text-secondary);" data-key="rater_camera_desc">Use your device camera to capture a photo of your smile for AI analysis.</p>
+                    <div id="camera-denied" class="camera-denied-msg" style="display:none;">
+                        <p data-key="rater_camera_denied">Camera access was denied. Please allow camera permissions in your browser settings and try again.</p>
+                    </div>
+                </div>
+
+                <!-- Step 2: Live Preview + Capture -->
+                <div class="rater-step" id="rater-step-2">
+                    <div class="camera-preview">
+                        <video id="camera-video" autoplay playsinline></video>
+                    </div>
+                    <button class="btn btn-gold mt-20" onclick="capturePhoto()" data-key="rater_capture_btn">Capture</button>
+                    <br>
+                    <button class="btn btn-outline mt-20" onclick="retakePhoto()" style="font-size:12px;padding:8px 20px;" data-key="rater_back">← Back</button>
+                </div>
+
+                <!-- Step 3: Captured Image + Rate -->
+                <div class="rater-step" id="rater-step-3">
+                    <div class="camera-preview">
+                        <img id="captured-image" src="" alt="Captured smile">
+                    </div>
+                    <button class="btn btn-gold mt-20" onclick="rateSmile()" id="rate-btn" data-key="rater_rate_btn">Rate My Smile ✨</button>
+                    <br>
+                    <button class="btn btn-outline mt-20" onclick="retakePhoto()" style="font-size:12px;padding:8px 20px;" data-key="rater_retake">Retake</button>
+                    <div id="rater-loading" style="display:none;margin-top:20px;">
+                        <p style="color:var(--gold);font-size:14px;" data-key="rater_analyzing">✨ Analyzing your smile...</p>
+                    </div>
+                </div>
+
+                <!-- Step 4: Result -->
+                <div class="rater-step" id="rater-step-4">
+                    <div class="rater-result-card" id="rater-result-card">
+                        <div class="result-stars" id="result-stars"></div>
+                        <div class="result-title" id="result-title"></div>
+                        <div class="result-message" id="result-message"></div>
+                        <div class="result-recommendation" id="result-recommendation"></div>
+                        <button class="btn btn-gold" onclick="navigateTo('booking')" data-key="rater_book_cta">Book a Consultation</button>
+                        <br>
+                        <button class="btn btn-outline mt-20" onclick="retakePhoto()" style="font-size:12px;padding:8px 20px;" data-key="rater_try_again">Try Again</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ============================== -->
+<!-- ===== TEAM PAGE ===== -->
+<!-- ============================== -->
+<div class="page" id="page-team">
+    <section class="section" style="padding-top:140px;">
+        <div class="container">
+            <h2 class="section-title" data-key="team_title">Meet Our Team</h2>
+            <div class="gold-divider"></div>
+            <p class="section-subtitle" data-key="team_subtitle">Internationally trained dental professionals dedicated to your smile.</p>
+            <div class="team-grid">
+                <div class="card team-card">
+                    <div class="tc-photo" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--bg-secondary),var(--bg-card));color:var(--gold);font-size:48px;">👨‍⚕️</div>
+                    <div class="tc-body">
+                        <h3 data-key="team_1_name">Dr. Khalid Al-Ahmad</h3>
+                        <div class="tc-role" data-key="team_1_role">Founder & Lead Dentist</div>
+                        <p data-key="team_1_desc">20+ years of experience in aesthetic dentistry. Trained at King's College London. Specializes in full smile makeovers and porcelain veneers.</p>
+                    </div>
+                </div>
+                <div class="card team-card">
+                    <div class="tc-photo" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--bg-secondary),var(--bg-card));color:var(--gold);font-size:48px;">👩‍⚕️</div>
+                    <div class="tc-body">
+                        <h3 data-key="team_2_name">Dr. Layla Hassan</h3>
+                        <div class="tc-role" data-key="team_2_role">Orthodontic Specialist</div>
+                        <p data-key="team_2_desc">Certified Invisalign Diamond provider. Harvard School of Dental Medicine graduate. Expert in invisible orthodontics and facial aesthetics.</p>
+                    </div>
+                </div>
+                <div class="card team-card">
+                    <div class="tc-photo" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--bg-secondary),var(--bg-card));color:var(--gold);font-size:48px;">👨‍⚕️</div>
+                    <div class="tc-body">
+                        <h3 data-key="team_3_name">Dr. Omar Farouk</h3>
+                        <div class="tc-role" data-key="team_3_role">Implant Surgeon</div>
+                        <p data-key="team_3_desc">Board-certified oral surgeon with expertise in guided implant surgery and full-arch rehabilitation. Trained in Germany and Switzerland.</p>
+                    </div>
+                </div>
+                <div class="card team-card">
+                    <div class="tc-photo" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--bg-secondary),var(--bg-card));color:var(--gold);font-size:48px;">👩‍⚕️</div>
+                    <div class="tc-body">
+                        <h3 data-key="team_4_name">Dr. Hessa Al-Khalifi</h3>
+                        <div class="tc-role" data-key="team_4_role">Cosmetic Dentist</div>
+                        <p data-key="team_4_desc">Master ceramist and cosmetic specialist. Known for her artistic eye and meticulous attention to detail in every smile design.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-40">
+                <p style="color:var(--gold);font-size:16px;font-family:var(--font-display);" data-key="team_hiring_text">We're always looking for talented professionals to join our team.</p>
+                <button class="btn btn-outline mt-20" onclick="navigateTo('contact')" data-key="team_apply_btn">Apply Now</button>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ============================== -->
+<!-- ===== PHILOSOPHY PAGE ===== -->
+<!-- ============================== -->
+<div class="page" id="page-philosophy">
+    <section class="section" style="padding-top:140px;">
+        <div class="container">
+            <h2 class="section-title" data-key="philosophy_title">Our Philosophy</h2>
+            <div class="gold-divider"></div>
+            <p class="section-subtitle" data-key="philosophy_subtitle">The beliefs and values that guide everything we do at Sky Dental.</p>
+            <div class="philosophy-content">
+                <h3 data-key="phil_vision_title">Our Vision</h3>
+                <p data-key="phil_vision_desc">To redefine dental care in Kuwait by creating an experience that is as luxurious as it is transformative. We believe everyone deserves a smile that radiates confidence, and we are committed to making that a reality through innovation, artistry, and compassion.</p>
+
+                <h3 data-key="phil_mission_title">Our Mission</h3>
+                <p data-key="phil_mission_desc">To deliver exceptional aesthetic dental care in an environment that prioritizes patient comfort, safety, and satisfaction. We combine cutting-edge technology with personalized treatment plans to achieve results that exceed expectations.</p>
+
+                <h3 data-key="phil_approach_title">Our Approach</h3>
+                <p data-key="phil_approach_desc">Every smile tells a story, and we listen first. Our holistic approach considers not just your dental health, but your facial aesthetics, personality, and lifestyle. We believe in conservative dentistry — enhancing what nature gave you, never over-correcting.</p>
+
+                <div class="philosophy-values">
+                    <div class="card value-card">
+                        <div class="value-icon">💎</div>
+                        <h4 data-key="val_excellence">Excellence</h4>
+                        <p data-key="val_excellence_desc">Pursuing perfection in every detail of care.</p>
+                    </div>
+                    <div class="card value-card">
+                        <div class="value-icon">🤝</div>
+                        <h4 data-key="val_trust">Trust</h4>
+                        <p data-key="val_trust_desc">Building lasting relationships through honesty and transparency.</p>
+                    </div>
+                    <div class="card value-card">
+                        <div class="value-icon">🌟</div>
+                        <h4 data-key="val_innovation">Innovation</h4>
+                        <p data-key="val_innovation_desc">Embracing the latest technology and techniques.</p>
+                    </div>
+                    <div class="card value-card">
+                        <div class="value-icon">💝</div>
+                        <h4 data-key="val_compassion">Compassion</h4>
+                        <p data-key="val_compassion_desc">Treating every patient with warmth and genuine care.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ============================== -->
+<!-- ===== CONTACT PAGE ===== -->
+<!-- ============================== -->
+<div class="page" id="page-contact">
+    <section class="section" style="padding-top:140px;">
+        <div class="container">
+            <h2 class="section-title" data-key="contact_title">Get in Touch</h2>
+            <div class="gold-divider"></div>
+            <p class="section-subtitle" data-key="contact_subtitle">We'd love to hear from you. Reach out with any questions or to schedule a visit.</p>
+            <div class="contact-layout">
+                <div>
+                    <h3 style="font-family:var(--font-display);font-size:22px;color:var(--gold);margin-bottom:8px;" data-key="contact_info_title">Contact Information</h3>
+                    <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px;" data-key="contact_info_desc">Visit us or reach out through any of the channels below.</p>
+                    <div class="contact-info-list">
+                        <div class="contact-info-item">
+                            <div class="cii-icon">📍</div>
+                            <div>
+                                <h4 data-key="ci_address_label">Address</h4>
+                                <p data-key="ci_address">Al Hamra Tower, Level 12<br>Safiya Al Jawhara St<br>Kuwait City, Kuwait</p>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <div class="cii-icon">📞</div>
+                            <div>
+                                <h4 data-key="ci_phone_label">Phone</h4>
+                                <p data-key="ci_phone">+965 2222 0000</p>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <div class="cii-icon">✉</div>
+                            <div>
+                                <h4 data-key="ci_email_label">Email</h4>
+                                <p data-key="ci_email">hello@skydental.kw</p>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <div class="cii-icon">🕐</div>
+                            <div>
+                                <h4 data-key="ci_hours_label">Hours</h4>
+                                <p data-key="ci_hours">Sat - Wed: 9:00 AM - 10:00 PM<br>Thu: 9:00 AM - 8:00 PM<br>Fri: Closed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="multi-step-form" id="contact-form">
+                    <div class="form-progress" id="contact-progress">
+                        <div class="form-progress-bar"><div class="fill" id="cfp-1"></div></div>
+                        <div class="form-progress-bar"><div class="fill" id="cfp-2"></div></div>
+                        <div class="form-progress-bar"><div class="fill" id="cfp-3"></div></div>
+                    </div>
+
+                    <div class="form-step active" id="cstep-1">
+                        <div class="form-step-title" data-key="cf_step1_title">Your Details</div>
+                        <div class="form-group">
+                            <label data-key="cf_name_label">Full Name *</label>
+                            <input type="text" id="contact-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-key="cf_phone_label">Phone Number *</label>
+                            <input type="tel" id="contact-phone" required>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn btn-gold" onclick="nextContactStep()" data-key="cf_next">Next</button>
+                        </div>
+                    </div>
+
+                    <div class="form-step" id="cstep-2">
+                        <div class="form-step-title" data-key="cf_step2_title">Your Message</div>
+                        <div class="form-group">
+                            <label data-key="cf_subject_label">Subject *</label>
+                            <input type="text" id="contact-subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-key="cf_message_label">Message *</label>
+                            <textarea id="contact-message" required></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn btn-outline" onclick="prevContactStep()" data-key="cf_prev">Back</button>
+                            <button class="btn btn-gold" onclick="submitContactForm()" data-key="cf_submit">Send Message</button>
+                        </div>
+                    </div>
+
+                    <div class="form-step" id="cstep-3">
+                        <div class="form-confirmation">
+                            <div class="check-icon">✓</div>
+                            <h3 data-key="cf_success_title">Message Sent!</h3>
+                            <p data-key="cf_success_desc">Thank you for reaching out. We'll get back to you within 24 hours.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4 data-key="footer_brand">Sky Dental Center</h4>
+                <p data-key="footer_brand_desc">Luxury aesthetic dentistry in the heart of Kuwait City. Transforming smiles with artistry, technology, and compassion since 2009.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="#" aria-label="Twitter">🐦</a>
+                    <a href="#" aria-label="Facebook">👤</a>
+                    <a href="#" aria-label="Snapchat">👻</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4 data-key="footer_quick">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#home" data-page="home" onclick="navigateTo('home')" data-key="nav_home">Home</a></li>
+                    <li><a href="#treatments" data-page="treatments" onclick="navigateTo('treatments')" data-key="nav_treatments">Treatments</a></li>
+                    <li><a href="#booking" data-page="booking" onclick="navigateTo('booking')" data-key="nav_booking">Book Now</a></li>
+                    <li><a href="#gallery" data-page="gallery" onclick="navigateTo('gallery')" data-key="nav_gallery">Gallery</a></li>
+                    <li><a href="#contact" data-page="contact" onclick="navigateTo('contact')" data-key="nav_contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 data-key="footer_treatments">Treatments</h4>
+                <ul class="footer-links">
+                    <li><a href="#treatments" onclick="navigateTo('treatments')" data-key="treat_veneers">Porcelain Veneers</a></li>
+                    <li><a href="#treatments" onclick="navigateTo('treatments')" data-key="treat_whitening">Teeth Whitening</a></li>
+                    <li><a href="#treatments" onclick="navigateTo('treatments')" data-key="treat_implants">Dental Implants</a></li>
+                    <li><a href="#treatments" onclick="navigateTo('treatments')" data-key="treat_invisalign">Invisalign</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 data-key="footer_newsletter">Newsletter</h4>
+                <p data-key="footer_newsletter_desc">Stay updated on our latest treatments and special offers.</p>
+                <div class="newsletter-form">
+                    <input type="email" id="newsletter-email" data-key-placeholder="footer_newsletter_placeholder" placeholder="Enter your email">
+                    <button onclick="subscribeNewsletter()" data-key="footer_subscribe">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-key="footer_copyright">© 2024 Sky Dental Center. All rights reserved. | Designed with ✦ in Kuwait</p>
+        </div>
+    </div>
+</footer>
+
+<!-- ===== COOKIE BAR ===== -->
+<div id="cookie-bar">
+    <div class="cookie-inner">
+        <p class="cookie-text" data-key="cookie_text">We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.</p>
+        <div class="cookie-actions">
+            <a class="cookie-learn-more" href="#contact" onclick="navigateTo('contact')" data-key="cookie_learn_more">Learn More</a>
+            <button class="cookie-accept" onclick="acceptCookies()" data-key="cookie_accept">Accept</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== AI CHATBOT ===== -->
+<button id="chatbot-btn" onclick="toggleChatbot()">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/><circle cx="8" cy="10" r="1.5"/><circle cx="12" cy="10" r="1.5"/><circle cx="16" cy="10" r="1.5"/></svg>
+</button>
+<div id="chatbot-panel">
+    <div class="chat-header">
+        <h3 id="chat-header-text" data-key="chat_header">Sky Dental Assistant</h3>
+        <button class="chat-close" onclick="toggleChatbot()">✕</button>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+        <div class="chat-msg assistant" data-key="chat_welcome">Hello! 👋 How can I help you today? Ask me about treatments, booking, or general dental advice.</div>
+    </div>
+    <div class="chat-input-area">
+        <input type="text" id="chat-input" data-key-placeholder="chat_placeholder" placeholder="Type your question..." onkeypress="if(event.key==='Enter')sendChatMessage()">
+        <button class="chat-send-btn" onclick="sendChatMessage()">➤</button>
+    </div>
+</div>
+
+<!-- ===== BACK TO TOP ===== -->
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- ===== CONFETTI CONTAINER ===== -->
+<div class="confetti-container" id="confetti-container"></div>
+
+
+<script>
+// ============================================
+// TRANSLATIONS
+// ============================================
+const translations = {
+    en: {
+        preloader_subtitle: "Luxury Aesthetic Dentistry",
+        nav_logo: "SKY DENTAL",
+        nav_home: "Home",
+        nav_treatments: "Treatments",
+        nav_gallery: "Gallery",
+        nav_booking: "Book Now",
+        nav_simulate: "Rate Smile",
+        nav_team: "Our Team",
+        nav_hiring: "HIRING",
+        nav_philosophy: "Philosophy",
+        nav_contact: "Contact",
+        hero_badge: "Welcome to Sky Dental",
+        hero_title: 'Where Every <span>Smile</span> Becomes a Masterpiece',
+        hero_subtitle: "Experience world-class aesthetic dentistry in the heart of Kuwait City. Your journey to the perfect smile begins here.",
+        hero_btn_book: "Book Consultation",
+        hero_btn_treatments: "Our Treatments",
+        stat_patients: "Happy Patients",
+        stat_experience: "Years Experience",
+        stat_specialists: "Expert Specialists",
+        stat_satisfaction: "Satisfaction Rate",
+        home_treat_title: "Our Signature Treatments",
+        home_treat_subtitle: "Discover our range of premium dental treatments designed to give you the smile you deserve.",
+        treat_veneers: "Porcelain Veneers",
+        treat_veneers_desc: "Transform your smile with ultra-thin porcelain shells crafted to perfection.",
+        treat_whitening: "Teeth Whitening",
+        treat_whitening_desc: "Professional whitening that reveals your brightest, most confident smile.",
+        treat_implants: "Dental Implants",
+        treat_implants_desc: "Permanent, natural-looking tooth replacement with titanium precision.",
+        treat_invisalign: "Invisalign",
+        treat_invisalign_desc: "Invisible orthodontics for a straighter smile without metal braces.",
+        home_why_title: "Why Choose Sky Dental",
+        home_why_subtitle: "We combine cutting-edge technology with personalized care for unmatched results.",
+        why_luxury_title: "Luxury Experience",
+        why_luxury_desc: "Step into an environment designed for comfort and relaxation. Every detail is curated for your wellbeing.",
+        why_expertise_title: "World-Class Expertise",
+        why_expertise_desc: "Our internationally trained specialists bring decades of combined experience to every procedure.",
+        why_tech_title: "Advanced Technology",
+        why_tech_desc: "State-of-the-art equipment ensures precision, comfort, and superior results every time.",
+        home_tech_title: "Our Technology",
+        home_tech_subtitle: "Investing in the latest dental technology for your comfort and results.",
+        tech_3d_title: "3D Scanning",
+        tech_3d_stat: "Precise digital impressions in under 3 minutes",
+        tech_laser_title: "Laser Therapy",
+        tech_laser_stat: "Pain-free procedures with faster recovery",
+        tech_xray_title: "Digital X-Ray",
+        tech_xray_stat: "90% less radiation than traditional X-rays",
+        home_process_title: "Your Journey",
+        home_process_subtitle: "From first consultation to your perfect smile — we guide you every step.",
+        process_consult_title: "Consultation",
+        process_consult_desc: "Meet our specialists for a personalized assessment and treatment plan.",
+        process_plan_title: "Custom Plan",
+        process_plan_desc: "We design a bespoke treatment roadmap tailored to your goals.",
+        process_treat_title: "Treatment",
+        process_treat_desc: "Expert care using the latest technology in our luxury clinic.",
+        process_smile_title: "Perfect Smile",
+        process_smile_desc: "Reveal your stunning new smile with confidence and pride.",
+        home_test_title: "What Our Patients Say",
+        home_test_subtitle: "Real stories from real smiles.",
+        test_1_quote: '"Sky Dental completely transformed my smile. The team made me feel like royalty from the moment I walked in. I can\'t stop smiling now!"',
+        test_1_name: "Fatima Al-Sabah",
+        test_1_role: "Veneer Patient",
+        test_2_quote: '"The professionalism and attention to detail at Sky Dental is unmatched. My dental implants look and feel completely natural."',
+        test_2_name: "Ahmed Al-Rashidi",
+        test_2_role: "Implant Patient",
+        test_3_quote: '"I was nervous about Invisalign but the team made the entire process comfortable and exciting. The results exceeded my expectations!"',
+        test_3_name: "Noura Al-Hamad",
+        test_3_role: "Invisalign Patient",
+        home_potm_title: "Patient of the Month",
+        potm_name: "Sara Al-Mutawa",
+        potm_treatment: "Full Smile Makeover",
+        potm_quote: '"Sky Dental didn\'t just fix my teeth — they gave me a new lease on life. Every visit felt like a spa day. I genuinely look forward to showing off my smile wherever I go."',
+        home_ba_title: "Before & After",
+        home_ba_subtitle: "See the stunning transformations achieved at Sky Dental.",
+        ba_veneers_label: "Veneers Transformation",
+        ba_whitening_label: "Whitening Result",
+        ba_implant_label: "Dental Implant",
+        ba_invisalign_label: "Invisalign Result",
+        home_faq_title: "Frequently Asked Questions",
+        faq_1_q: "What makes Sky Dental different from other clinics?",
+        faq_1_a: "Sky Dental combines luxury hospitality with world-class dental expertise. Our state-of-the-art technology, internationally trained specialists, and personalized approach ensure an experience unlike any other dental clinic in Kuwait.",
+        faq_2_q: "How do I book an appointment?",
+        faq_2_a: "You can book online through our website's booking system, call us at +965 2222 0000, or visit us at our clinic in Kuwait City. Our online booking system allows you to choose your preferred date and time easily.",
+        faq_3_q: "Do you accept insurance?",
+        faq_3_a: "Yes, we work with most major insurance providers in Kuwait. Contact our front desk with your insurance details and we'll verify your coverage before your appointment.",
+        faq_4_q: "Is teeth whitening safe?",
+        faq_4_a: "Absolutely. Our professional whitening treatments are supervised by experienced dentists and use clinically proven methods. We customize the treatment intensity based on your enamel health to ensure safe, stunning results.",
+        faq_5_q: "What are your operating hours?",
+        faq_5_a: "We are open Saturday to Wednesday from 9:00 AM to 10:00 PM, Thursday from 9:00 AM to 8:00 PM. We are closed on Fridays. Emergency dental services are available by calling our hotline.",
+        home_cta_title: "Ready for Your Transformation?",
+        home_cta_subtitle: "Take the first step towards your dream smile today.",
+        home_cta_btn: "Schedule Your Visit",
+        treat_page_title: "Our Treatments",
+        treat_page_subtitle: "Comprehensive dental care with a focus on aesthetics and comfort.",
+        tpc_veneers: "Porcelain Veneers",
+        tpc_veneers_desc: "Ultra-thin, custom-crafted porcelain shells that cover imperfections and create a flawless, natural-looking smile. Each veneer is handcrafted by our master ceramists.",
+        tpc_whitening: "Professional Whitening",
+        tpc_whitening_desc: "In-office and take-home whitening options that safely brighten your teeth by up to 8 shades. We use advanced LED-accelerated technology for fast, lasting results.",
+        tpc_implants: "Dental Implants",
+        tpc_implants_desc: "Premium titanium implants with guided surgery for precise placement. Our 3D planning ensures optimal results with minimal discomfort and faster healing.",
+        tpc_invisalign: "Invisalign Clear Aligners",
+        tpc_invisalign_desc: "Virtually invisible orthodontic treatment for straightening teeth. Custom aligners are replaced every 2 weeks, gradually shifting your teeth into perfect alignment.",
+        tpc_crowns: "Dental Crowns & Bridges",
+        tpc_crowns_desc: "Same-day crowns using CEREC technology and high-quality zirconia or porcelain. Restore damaged teeth with crowns that look and feel completely natural.",
+        tpc_smile: "Smile Makeover",
+        tpc_smile_desc: "A comprehensive combination of treatments tailored to completely transform your smile. Includes digital smile design preview so you see the result before treatment begins.",
+        tpc_book: "Book Now",
+        gallery_title: "Smile Gallery",
+        gallery_subtitle: "Explore our portfolio of beautiful smile transformations.",
+        gallery_1_label: "Veneers",
+        gallery_2_label: "Whitening",
+        gallery_3_label: "Implants",
+        gallery_4_label: "Makeover",
+        gallery_5_label: "Invisalign",
+        gallery_6_label: "Crowns",
+        gallery_7_label: "Bonding",
+        gallery_8_label: "Full Makeover",
+        gallery_9_label: "Veneers",
+        booking_page_title: "Book Your Appointment",
+        booking_page_subtitle: "Schedule your consultation in just a few simple steps.",
+        booking_step1_title: "Select Your Treatment",
+        booking_step1_desc: "Choose the treatment you're interested in.",
+        booking_service_label: "Treatment",
+        booking_select: "Select a treatment...",
+        opt_veneers: "Porcelain Veneers",
+        opt_whitening: "Teeth Whitening",
+        opt_implants: "Dental Implants",
+        opt_invisalign: "Invisalign",
+        opt_crowns: "Crowns & Bridges",
+        opt_makeover: "Smile Makeover",
+        opt_consultation: "General Consultation",
+        booking_next: "Next",
+        booking_prev: "Previous",
+        booking_step2_title: "Choose Date & Time",
+        booking_step2_desc: "Pick your preferred appointment date and time.",
+        booking_time_label: "Available Times",
+        booking_step3_title: "Your Information",
+        booking_step3_desc: "Please provide your contact details.",
+        booking_name_label: "Full Name",
+        booking_phone_label: "Phone Number",
+        booking_email_label: "Email Address",
+        booking_step4_title: "Confirm Your Booking",
+        booking_step4_desc: "Review your appointment details below.",
+        booking_tips_title: "💡 Tips for Your Visit",
+        booking_tips_desc: "Please arrive 10 minutes early. Bring any previous dental records or X-rays. If you need to reschedule, please call us at least 24 hours in advance.",
+        booking_confirm: "Confirm Booking",
+        booking_success_title: "Booking Confirmed!",
+        booking_success_desc: "We'll send a confirmation to your email shortly. We look forward to seeing you at Sky Dental!",
+        rater_title: "Rate Your Smile",
+        rater_subtitle: "Let our AI analyze your smile and provide personalized feedback.",
+        rater_camera_btn: "Take a Smile Photo",
+        rater_camera_desc: "Use your device camera to capture a photo of your smile for AI analysis.",
+        rater_camera_denied: "Camera access was denied. Please allow camera permissions in your browser settings and try again.",
+        rater_capture_btn: "Capture",
+        rater_back: "← Back",
+        rater_rate_btn: "Rate My Smile ✨",
+        rater_retake: "Retake",
+        rater_analyzing: "✨ Analyzing your smile...",
+        rater_book_cta: "Book a Consultation",
+        rater_try_again: "Try Again",
+        team_title: "Meet Our Team",
+        team_subtitle: "Internationally trained dental professionals dedicated to your smile.",
+        team_1_name: "Dr. Khalid Al-Ahmad",
+        team_1_role: "Founder & Lead Dentist",
+        team_1_desc: "20+ years of experience in aesthetic dentistry. Trained at King's College London. Specializes in full smile makeovers and porcelain veneers.",
+        team_2_name: "Dr. Layla Hassan",
+        team_2_role: "Orthodontic Specialist",
+        team_2_desc: "Certified Invisalign Diamond provider. Harvard School of Dental Medicine graduate. Expert in invisible orthodontics and facial aesthetics.",
+        team_3_name: "Dr. Omar Farouk",
+        team_3_role: "Implant Surgeon",
+        team_3_desc: "Board-certified oral surgeon with expertise in guided implant surgery and full-arch rehabilitation. Trained in Germany and Switzerland.",
+        team_4_name: "Dr. Hessa Al-Khalifi",
+        team_4_role: "Cosmetic Dentist",
+        team_4_desc: "Master ceramist and cosmetic specialist. Known for her artistic eye and meticulous attention to detail in every smile design.",
+        team_hiring_text: "We're always looking for talented professionals to join our team.",
+        team_apply_btn: "Apply Now",
+        philosophy_title: "Our Philosophy",
+        philosophy_subtitle: "The beliefs and values that guide everything we do at Sky Dental.",
+        phil_vision_title: "Our Vision",
+        phil_vision_desc: "To redefine dental care in Kuwait by creating an experience that is as luxurious as it is transformative. We believe everyone deserves a smile that radiates confidence, and we are committed to making that a reality through innovation, artistry, and compassion.",
+        phil_mission_title: "Our Mission",
+        phil_mission_desc: "To deliver exceptional aesthetic dental care in an environment that prioritizes patient comfort, safety, and satisfaction. We combine cutting-edge technology with personalized treatment plans to achieve results that exceed expectations.",
+        phil_approach_title: "Our Approach",
+        phil_approach_desc: "Every smile tells a story, and we listen first. Our holistic approach considers not just your dental health, but your facial aesthetics, personality, and lifestyle. We believe in conservative dentistry — enhancing what nature gave you, never over-correcting.",
+        val_excellence: "Excellence",
+        val_excellence_desc: "Pursuing perfection in every detail of care.",
+        val_trust: "Trust",
+        val_trust_desc: "Building lasting relationships through honesty and transparency.",
+        val_innovation: "Innovation",
+        val_innovation_desc: "Embracing the latest technology and techniques.",
+        val_compassion: "Compassion",
+        val_compassion_desc: "Treating every patient with warmth and genuine care.",
+        contact_title: "Get in Touch",
+        contact_subtitle: "We'd love to hear from you. Reach out with any questions or to schedule a visit.",
+        contact_info_title: "Contact Information",
+        contact_info_desc: "Visit us or reach out through any of the channels below.",
+        ci_address_label: "Address",
+        ci_address: "Al Hamra Tower, Level 12<br>Safiya Al Jawhara St<br>Kuwait City, Kuwait",
+        ci_phone_label: "Phone",
+        ci_phone: "+965 2222 0000",
+        ci_email_label: "Email",
+        ci_email: "hello@skydental.kw",
+        ci_hours_label: "Hours",
+        ci_hours: "Sat - Wed: 9:00 AM - 10:00 PM<br>Thu: 9:00 AM - 8:00 PM<br>Fri: Closed",
+        cf_step1_title: "Your Details",
+        cf_name_label: "Full Name *",
+        cf_phone_label: "Phone Number *",
+        cf_next: "Next",
+        cf_prev: "Back",
+        cf_step2_title: "Your Message",
+        cf_subject_label: "Subject *",
+        cf_message_label: "Message *",
+        cf_submit: "Send Message",
+        cf_success_title: "Message Sent!",
+        cf_success_desc: "Thank you for reaching out. We'll get back to you within 24 hours.",
+        footer_brand: "Sky Dental Center",
+        footer_brand_desc: "Luxury aesthetic dentistry in the heart of Kuwait City. Transforming smiles with artistry, technology, and compassion since 2009.",
+        footer_quick: "Quick Links",
+        footer_treatments: "Treatments",
+        footer_newsletter: "Newsletter",
+        footer_newsletter_desc: "Stay updated on our latest treatments and special offers.",
+        footer_newsletter_placeholder: "Enter your email",
+        footer_subscribe: "Subscribe",
+        footer_copyright: "© 2024 Sky Dental Center. All rights reserved. | Designed with ✦ in Kuwait",
+        cookie_text: "We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.",
+        cookie_learn_more: "Learn More",
+        cookie_accept: "Accept",
+        chat_header: "Sky Dental Assistant",
+        chat_welcome: "Hello! 👋 How can I help you today? Ask me about treatments, booking, or general dental advice.",
+        chat_placeholder: "Type your question..."
+    },
+    ar: {
+        preloader_subtitle: "طب الأسنان التجميلي الفاخر",
+        nav_logo: "سكاي للأسنان",
+        nav_home: "الرئيسية",
+        nav_treatments: "العلاجات",
+        nav_gallery: "المعرض",
+        nav_booking: "احجز الآن",
+        nav_simulate: "قيّم ابتسامتك",
+        nav_team: "فريقنا",
+        nav_hiring: "توظيف",
+        nav_philosophy: "فلسفتنا",
+        nav_contact: "اتصل بنا",
+        hero_badge: "مرحباً بكم في سكاي للأسنان",
+        hero_title: 'حيث تصبح كل <span>ابتسامة</span> تحفة فنية',
+        hero_subtitle: "استمتع بخبرة طب الأسنان التجميلي عالمي المستوى في قلب مدينة الكويت. رحلتك نحو الابتسامة المثالية تبدأ هنا.",
+        hero_btn_book: "احجز استشارة",
+        hero_btn_treatments: "علاجاتنا",
+        stat_patients: "مريض سعيد",
+        stat_experience: "سنوات خبرة",
+        stat_specialists: "أخصائي متميز",
+        stat_satisfaction: "معدل الرضا",
+        home_treat_title: "علاجاتنا المميزة",
+        home_treat_subtitle: "اكتشف مجموعة علاجاتنا الأسنان المتميزة المصممة لمنحك الابتسامة التي تستحقها.",
+        treat_veneers: "قشور البورسلين",
+        treat_veneers_desc: "حوّل ابتسامتك بقشور بورسلين فائقة النحافة مصنوعة بإتقان.",
+        treat_whitening: "تبييض الأسنان",
+        treat_whitening_desc: "تبييض احترافي يكشف عن ألمع ابتسامة وأكثرها ثقة.",
+        treat_implants: "زراعة الأسنان",
+        treat_implants_desc: "بديل أسنان دائم وطبيعي المظهر بدقة التيتانيوم.",
+        treat_invisalign: "إنفزلاين",
+        treat_invisalign_desc: "تقويم أسنان غير مرئي لابتسامة أقوى بدون أطقم معدنية.",
+        home_why_title: "لماذا تختار سكاي للأسنان",
+        home_why_subtitle: "نجمع بين أحدث التقنيات والرعاية الشخصية لنتائج لا مثيل لها.",
+        why_luxury_title: "تجربة فاخرة",
+        why_luxury_desc: "ادخل إلى بيئة مصممة للراحة والاسترخاء. كل تفصيلة مصممة لرفاهيتك.",
+        why_expertise_title: "خبرة عالمية المستوى",
+        why_expertise_desc: "أخصائيونا المدربون دولياً يجلبون عقوداً من الخبرة المشتركة لكل إجراء.",
+        why_tech_title: "تكنولوجيا متقدمة",
+        why_tech_desc: "معدات حديثة تضمن الدقة والراحة ونتائج متفوقة في كل مرة.",
+        home_tech_title: "تقنياتنا",
+        home_tech_subtitle: "نستثمر في أحدث تقنيات طب الأسنان لراحتك ونتائجك.",
+        tech_3d_title: "المسح ثلاثي الأبعاد",
+        tech_3d_stat: "انطباعات رقمية دقيقة في أقل من 3 دقائق",
+        tech_laser_title: "العلاج بالليزر",
+        tech_laser_stat: "إجراءات بدون ألم مع تعافي أسرع",
+        tech_xray_title: "الأشعة الرقمية",
+        tech_xray_stat: "إشعاع أقل بنسبة 90% من الأشعة التقليدية",
+        home_process_title: "رحلتك",
+        home_process_subtitle: "من الاستشارة الأولى إلى ابتسامتك المثالية — نرشدك في كل خطوة.",
+        process_consult_title: "الاستشارة",
+        process_consult_desc: "قابل أخصائيينا لتقييم شخصي وخطة علاجية.",
+        process_plan_title: "خطة مخصصة",
+        process_plan_desc: "نصمم خريطة علاجية فريدة مصممة حسب أهدافك.",
+        process_treat_title: "العلاج",
+        process_treat_desc: "رعاية متخصصة باستخدام أحدث التقنيات في عيادتنا الفاخرة.",
+        process_smile_title: "ابتسامة مثالية",
+        process_smile_desc: "اكشف عن ابتسامتك الجديدة المذهلة بثقة وفخر.",
+        home_test_title: "ماذا يقول مرضانا",
+        home_test_subtitle: "قصص حقيقية من ابتسامات حقيقية.",
+        test_1_quote: '"سكاي للأسنان غيّرت ابتسامتي بالكامل. الفريق جعلني أشعر كأنني من العائلة المالكة من لحظة دخولي. لا أتوقف عن الابتسامة الآن!"',
+        test_1_name: "فاطمة الصباح",
+        test_1_role: "مريضة قشور",
+        test_2_quote: '"الاحترافية والاهتمام بالتفاصيل في سكاي للأسنان لا مثيل لها. زراعة أسناني تبدو وتشعر طبيعية تماماً."',
+        test_2_name: "أحمد الرشيدي",
+        test_2_role: "مريض زراعة",
+        test_3_quote: '"كنت متوترة بشأن الإنفزلاين لكن الفريق جعل العملية برمتها مريحة ومثيرة. النتائج فاقت توقعاتي!"',
+        test_3_name: "نورة الحمد",
+        test_3_role: "مريضة إنفزلاين",
+        home_potm_title: "مريض الشهر",
+        potm_name: "سارة المطيري",
+        potm_treatment: "تحويل ابتسامة كامل",
+        potm_quote: '"سكاي للأسنان لم يصلح أسناني فحسب — بل منحني حياة جديدة. كل زيارة كانت كيوم في المنتجع. أتطلع حقاً لإظهار ابتسامتي أينما ذهبت."',
+        home_ba_title: "قبل وبعد",
+        home_ba_subtitle: "شاهد التحويلات المذهلة التي تحققت في سكاي للأسنان.",
+        ba_veneers_label: "تحويل القشور",
+        ba_whitening_label: "نتيجة التبييض",
+        ba_implant_label: "زراعة الأسنان",
+        ba_invisalign_label: "نتيجة الإنفزلاين",
+        home_faq_title: "الأسئلة الشائعة",
+        faq_1_q: "ما الذي يميز سكاي للأسنان عن العيادات الأخرى؟",
+        faq_1_a: "تجمع سكاي للأسنان بين الضيافة الفاخرة وخبرة طب الأسنان عالمية المستوى. تقنياتنا المتطورة وأخصائيونا المدربون دولياً ونهجنا الشخصي يضمن تجربة فريدة.",
+        faq_2_q: "كيف أحجز موعداً؟",
+        faq_2_a: "يمكنك الحجز عبر الإنترنت من خلال نظام الحجز على موقعنا، أو الاتصال بنا على الرقم +965 2222 0000، أو زيارتنا في عيادتنا بمدينة الكويت.",
+        faq_3_q: "هل تقبلون التأمين؟",
+        faq_3_a: "نعم، نتعامل مع معظم شركات التأمين الرئيسية في الكويت. تواصل مع مكتب الاستقبال بتفاصيل التأمين الخاص بك وسنتحقق من التغطية قبل موعدك.",
+        faq_4_q: "هل تبييض الأسنان آمن؟",
+        faq_4_a: "بالتأكيد. علاجات التبييض الاحترافية لدينا تحت إشراف أطباء ذوي خبرة وتستخدم طرقاً مثبتة سريرياً.",
+        faq_5_q: "ما هي ساعات العمل؟",
+        faq_5_a: "نحن مفتوحون من السبت إلى الأربعاء من 9:00 صباحاً إلى 10:00 مساءً، الخميس من 9:00 صباحاً إلى 8:00 مساءً. مغلقون يوم الجمعة.",
+        home_cta_title: "مستعد لتحولك؟",
+        home_cta_subtitle: "اتخذ الخطوة الأولى نحو ابتسامة أحلامك اليوم.",
+        home_cta_btn: "حدد موعد زيارتك",
+        treat_page_title: "علاجاتنا",
+        treat_page_subtitle: "رعاية شاملة للأسنان مع التركيز على التجميل والراحة.",
+        tpc_veneers: "قشور البورسلين",
+        tpc_veneers_desc: "قشور بورسلين فائقة النحافة مصنوعة يدوياً تغطي العيوب وتخلق ابتسامة مثالية طبيعية المظهر.",
+        tpc_whitening: "تبييض احترافي",
+        tpc_whitening_desc: "خيارات تبييض في العيادة والمنزل تبيّض أسنانك بأمان حتى 8 درجات.",
+        tpc_implants: "زراعة الأسنان",
+        tpc_implants_desc: "زراعات تيتانيوم متميزة بجراحة موجهة لوضع دقيق. تخطيط ثلاثي الأبعاد لنتائج مثالية.",
+        tpc_invisalign: "مصففات إنفزلاين الشفافة",
+        tpc_invisalign_desc: "علاج تقويمي شبه مرئي لتقويم الأسنان. مصففات مخصصة تُستبدل كل أسبوعين.",
+        tpc_crowns: "تيجان وجسور الأسنان",
+        tpc_crowns_desc: "تيجان في نفس اليوم باستخدام تقنية CEREC وزيركونيا عالية الجودة.",
+        tpc_smile: "تحويل الابتسامة",
+        tpc_smile_desc: "مزيج شامل من العلاجات لتحويل ابتسامتك بالكامل. يشمل معاينة تصميم الابتسامة الرقمية.",
+        tpc_book: "احجز الآن",
+        gallery_title: "معرض الابتسامات",
+        gallery_subtitle: "استكشف محفظة تحويلات الابتسامات الجميلة لدينا.",
+        gallery_1_label: "قشور",
+        gallery_2_label: "تبييض",
+        gallery_3_label: "زراعات",
+        gallery_4_label: "تحويل",
+        gallery_5_label: "إنفزلاين",
+        gallery_6_label: "تيجان",
+        gallery_7_label: "ترميم",
+        gallery_8_label: "تحويل كامل",
+        gallery_9_label: "قشور",
+        booking_page_title: "احجز موعدك",
+        booking_page_subtitle: "جدول استشارتك في بضع خطوات بسيطة.",
+        booking_step1_title: "اختر علاجك",
+        booking_step1_desc: "اختر العلاج الذي تهتم به.",
+        booking_service_label: "العلاج",
+        booking_select: "اختر علاجاً...",
+        opt_veneers: "قشور البورسلين",
+        opt_whitening: "تبييض الأسنان",
+        opt_implants: "زراعة الأسنان",
+        opt_invisalign: "إنفزلاين",
+        opt_crowns: "تيجان وجسور",
+        opt_makeover: "تحويل ابتسامة",
+        opt_consultation: "استشارة عامة",
+        booking_next: "التالي",
+        booking_prev: "السابق",
+        booking_step2_title: "اختر التاريخ والوقت",
+        booking_step2_desc: "اختر تاريخ ووقت الموعد المفضل لديك.",
+        booking_time_label: "الأوقات المتاحة",
+        booking_step3_title: "معلوماتك",
+        booking_step3_desc: "يرجى تقديم بيانات الاتصال الخاصة بك.",
+        booking_name_label: "الاسم الكامل",
+        booking_phone_label: "رقم الهاتف",
+        booking_email_label: "البريد الإلكتروني",
+        booking_step4_title: "تأكيد حجزك",
+        booking_step4_desc: "راجع تفاصيل موعدك أدناه.",
+        booking_tips_title: "💡 نصائح لزيارتك",
+        booking_tips_desc: "يرجى الحضور قبل 10 دقائق. أحضر أي سجلات أو أشعة سابقة. إذا احتجت لإعادة الجدولة، اتصل بنا قبل 24 ساعة على الأقل.",
+        booking_confirm: "تأكيد الحجز",
+        booking_success_title: "تم تأكيد الحجز!",
+        booking_success_desc: "سنرسل تأكيداً إلى بريدك الإلكتروني قريباً. نتطلع لرؤيتك في سكاي للأسنان!",
+        rater_title: "قيّم ابتسامتك",
+        rater_subtitle: "دع ذكاءنا الاصطناعي يحلل ابتسامتك ويقدم ملاحظات شخصية.",
+        rater_camera_btn: "التقط صورة ابتسامتك",
+        rater_camera_desc: "استخدم كاميرا جهازك لالتقاط صورة لابتسامتك لتحليلها بالذكاء الاصطناعي.",
+        rater_camera_denied: "تم رفض الوصول إلى الكاميرا. يرجى السماح بأذونات الكاميرا في إعدادات المتصفح وحاول مرة أخرى.",
+        rater_capture_btn: "التقط",
+        rater_back: "→ رجوع",
+        rater_rate_btn: "قيّم ابتسامتي ✨",
+        rater_retake: "إعادة التقاط",
+        rater_analyzing: "✨ تحليل ابتسامتك...",
+        rater_book_cta: "احجز استشارة",
+        rater_try_again: "حاول مرة أخرى",
+        team_title: "تعرف على فريقنا",
+        team_subtitle: "أطباء أسنان مدربون دولياً مكرسون لابتسامتك.",
+        team_1_name: "د. خالد الأحمد",
+        team_1_role: "المؤسس والطبيب الرئيسي",
+        team_1_desc: "أكثر من 20 عاماً من الخبرة في طب الأسنان التجميلي. تدرب في كلية كينجز لندن. متخصص في تحويلات الابتسامات الكاملة.",
+        team_2_name: "د. ليلى حسن",
+        team_2_role: "أخصائية تقويم",
+        team_2_desc: "مزود إنفزلاين معتمد من فئة الألماس. خريجة كلية طب الأسنان بجامعة هارفارد.",
+        team_3_name: "د. عمر فاروق",
+        team_3_role: "جراح زراعة",
+        team_3_desc: "جراح فم معتمد بخبرة في جراحة الزراعة الموجهة. تدرب في ألمانيا وسويسرا.",
+        team_4_name: "د. هessa الخليفي",
+        team_4_role: "طبيبة تجميل أسنان",
+        team_4_desc: "فنانة خزفية ومتخصصة تجميل. معروفة بعينها الفنية واهتمامها الدقيق بالتفاصيل.",
+        team_hiring_text: "نبحث دائماً عن محترفين موهوبين للانضمام إلى فريقنا.",
+        team_apply_btn: "قدّم الآن",
+        philosophy_title: "فلسفتنا",
+        philosophy_subtitle: "المعتقدات والقيم التي توجه كل ما نقوم به في سكاي للأسنان.",
+        phil_vision_title: "رؤيتنا",
+        phil_vision_desc: "إعادة تعريف رعاية الأسنان في الكويت من خلال خلق تجربة فاخرة بقدر ما هي تحويلية.",
+        phil_mission_title: "مهمتنا",
+        phil_mission_desc: "تقديم رعاية تجميلية استثنائية للأسنان في بيئة تعطي الأولوية لراحة المريض وسلامته ورضاه.",
+        phil_approach_title: "نهجنا",
+        phil_approach_desc: "كل ابتسامة تحكي قصة، ونستمع أولاً. نهجنا الشامل يراعي صحتك ومظهرك وشخصيتك وأسلوب حياتك.",
+        val_excellence: "التميز",
+        val_excellence_desc: "السعي نحو الكمال في كل تفصيلة من الرعاية.",
+        val_trust: "الثقة",
+        val_trust_desc: "بناء علاقات دائمة من خلال الصدق والشفافية.",
+        val_innovation: "الابتكار",
+        val_innovation_desc: "تبني أحدث التقنيات والأساليب.",
+        val_compassion: "التعاطف",
+        val_compassion_desc: "معاملة كل مريض بدفء ورعاية حقيقية.",
+        contact_title: "تواصل معنا",
+        contact_subtitle: "يسعدنا سماعك. تواصل مع أي أسئلة أو لتحديد موعد زيارة.",
+        contact_info_title: "معلومات الاتصال",
+        contact_info_desc: "زرنا أو تواصل معنا عبر أي من القنوات أدناه.",
+        ci_address_label: "العنوان",
+        ci_address: "برج الحمرا، الطابق 12<br>شارع صفية الجوهرة<br>مدينة الكويت، الكويت",
+        ci_phone_label: "الهاتف",
+        ci_phone: "+965 2222 0000",
+        ci_email_label: "البريد الإلكتروني",
+        ci_email: "hello@skydental.kw",
+        ci_hours_label: "الساعات",
+        ci_hours: "السبت - الأربعاء: 9:00 ص - 10:00 م<br>الخميس: 9:00 ص - 8:00 م<br>الجمعة: مغلق",
+        cf_step1_title: "بياناتك",
+        cf_name_label: "الاسم الكامل *",
+        cf_phone_label: "رقم الهاتف *",
+        cf_next: "التالي",
+        cf_prev: "رجوع",
+        cf_step2_title: "رسالتك",
+        cf_subject_label: "الموضوع *",
+        cf_message_label: "الرسالة *",
+        cf_submit: "إرسال الرسالة",
+        cf_success_title: "تم إرسال الرسالة!",
+        cf_success_desc: "شكراً لتواصلك. سنرد عليك خلال 24 ساعة.",
+        footer_brand: "مركز سكاي للأسنان",
+        footer_brand_desc: "طب الأسنان التجميلي الفاخر في قلب مدينة الكويت. نحوّل الابتسامات بالفن والتكنولوجيا والتعاطف منذ 2009.",
+        footer_quick: "روابط سريعة",
+        footer_treatments: "العلاجات",
+        footer_newsletter: "النشرة الإخبارية",
+        footer_newsletter_desc: "ابقَ على اطلاع بأحدث علاجاتنا وعروضنا الخاصة.",
+        footer_newsletter_placeholder: "أدخل بريدك الإلكتروني",
+        footer_subscribe: "اشترك",
+        footer_copyright: "© 2024 مركز سكاي للأسنان. جميع الحقوق محفوظة. | صمم بـ ✦ في الكويت",
+        cookie_text: "نستخدم ملفات تعريف الارتباط لتحسين تجربتك. بالاستمرار في زيارة هذا الموقع فإنك توافق على استخدامنا لملفات تعريف الارتباط.",
+        cookie_learn_more: "اعرف المزيد",
+        cookie_accept: "قبول",
+        chat_header: "مساعد سكاي للأسنان",
+        chat_welcome: "مرحباً! 👋 كيف يمكنني مساعدتك اليوم؟ اسألني عن العلاجات أو الحجز أو النصائح العامة.",
+        chat_placeholder: "اكتب سؤالك..."
+    }
+};
+
+let currentLang = 'en';
+
+function toggleLanguage() {
+    currentLang = currentLang === 'en' ? 'ar' : 'en';
+    const html = document.documentElement;
+    html.lang = currentLang;
+    html.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+    document.getElementById('lang-toggle').textContent = currentLang === 'en' ? 'AR' : 'EN';
+    applyTranslations();
+}
+
+function applyTranslations() {
+    const t = translations[currentLang];
+    document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (t[key] !== undefined) {
+            el.innerHTML = t[key];
+        }
+    });
+    document.querySelectorAll('[data-key-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-key-placeholder');
+        if (t[key] !== undefined) {
+            el.placeholder = t[key];
+        }
+    });
+    document.title = currentLang === 'ar'
+        ? 'مركز سكاي للأسنان | طب الأسنان التجميلي الفاخر في الكويت'
+        : 'Sky Dental Center | Luxury Aesthetic Dentistry in Kuwait';
+}
+
+// ============================================
+// SPA NAVIGATION
+// ============================================
+let currentPage = 'home';
+
+function navigateTo(page) {
+    currentPage = page;
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-' + page);
+    if (target) target.classList.add('active');
+    document.querySelectorAll('.nav-links a, .mobile-nav-links a').forEach(a => {
+        a.classList.toggle('active', a.getAttribute('data-page') === page);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (typeof initPageAnimations === 'function') initPageAnimations();
+    if (page === 'booking') renderCalendar();
+}
+
+// Handle nav link clicks
+document.querySelectorAll('[data-page]').forEach(a => {
+    a.addEventListener('click', function(e) {
+        e.preventDefault();
+        const page = this.getAttribute('data-page');
+        if (page) navigateTo(page);
+    });
+});
+
+// ============================================
+// MOBILE MENU
+// ============================================
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const ham = document.getElementById('hamburger');
+    const isOpen = menu.classList.contains('open');
+    menu.classList.toggle('open');
+    ham.classList.toggle('active');
+
+    if (!isOpen) {
+        const links = menu.querySelectorAll('.mobile-nav-links a');
+        links.forEach((link, i) => {
+            link.style.opacity = '0';
+            link.style.transform = 'translateY(20px)';
+            gsap.to(link, {
+                opacity: 1,
+                y: 0,
+                duration: 0.4,
+                delay: 0.1 + i * 0.08,
+                ease: 'power2.out'
+            });
+        });
+    }
+}
+
+function closeMobileMenu() {
+    document.getElementById('mobile-menu').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('active');
+}
+
+// ============================================
+// NAVBAR SCROLL
+// ============================================
+window.addEventListener('scroll', () => {
+    const navbar = document.getElementById('navbar');
+    const btt = document.getElementById('back-to-top');
+    if (window.scrollY > 80) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+    if (window.scrollY > 400) {
+        btt.classList.add('visible');
+        btt.classList.add('pulse');
+    } else {
+        btt.classList.remove('visible');
+        btt.classList.remove('pulse');
+    }
+});
+
+// ============================================
+// FAQ TOGGLE
+// ============================================
+function toggleFaq(item) {
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+}
+
+// ============================================
+// CALENDAR
+// ============================================
+let calendarDate = new Date();
+let selectedDate = null;
+let selectedTime = null;
+
+function renderCalendar() {
+    const cal = document.getElementById('calendar');
+    if (!cal) return;
+    const year = calendarDate.getFullYear();
+    const month = calendarDate.getMonth();
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    const monthNames = currentLang === 'ar'
+        ? ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر']
+        : ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+    const dayNames = currentLang === 'ar'
+        ? ['أحد','إثنين','ثلاثاء','أربعاء','خميس','جمعة','سبت']
+        : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    let html = '<div class="cal-header">';
+    html += '<button onclick="changeMonth(-1)">◀</button>';
+    html += '<span class="cal-month">' + monthNames[month] + ' ' + year + '</span>';
+    html += '<button onclick="changeMonth(1)">▶</button>';
+    html += '</div>';
+    html += '<div class="cal-grid">';
+
+    dayNames.forEach(d => {
+        html += '<div class="cal-day-name">' + d + '</div>';
+    });
+
+    for (let i = 0; i < firstDay; i++) {
+        html += '<div class="cal-day empty"></div>';
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+        const date = new Date(year, month, d);
+        date.setHours(0,0,0,0);
+        const isPast = date < today;
+        const isFriday = date.getDay() === 5;
+        const isToday = date.getTime() === today.getTime();
+        const isSelected = selectedDate && date.getTime() === selectedDate.getTime();
+        const cls = [];
+        if (isPast || isFriday) cls.push('disabled');
+        if (isToday) cls.push('today');
+        if (isSelected) cls.push('selected');
+        html += '<div class="cal-day ' + cls.join(' ') + '" onclick="selectDate(' + year + ',' + month + ',' + d + ')">' + d + '</div>';
+    }
+
+    html += '</div>';
+    cal.innerHTML = html;
+}
+
+function changeMonth(dir) {
+    calendarDate.setMonth(calendarDate.getMonth() + dir);
+    renderCalendar();
+}
+
+function selectDate(y, m, d) {
+    selectedDate = new Date(y, m, d);
+    selectedDate.setHours(0,0,0,0);
+    renderCalendar();
+}
+
+function selectTimeSlot(el) {
+    document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedTime = el.textContent;
+}
+
+// ============================================
+// BOOKING WIZARD
+// ============================================
+let bookingStep = 0;
+
+function nextBookingStep() {
+    if (bookingStep === 3) {
+        updateBookingSummary();
+    }
+    bookingStep++;
+    updateBookingUI();
+    if (bookingStep === 3) updateBookingSummary();
+    if (bookingStep === 4) {
+        confirmBooking();
+        bookingStep = 3;
+    }
+}
+
+function prevBookingStep() {
+    if (bookingStep > 0) {
+        bookingStep--;
+        updateBookingUI();
+    }
+}
+
+function updateBookingUI() {
+    document.querySelectorAll('.booking-step').forEach((s, i) => {
+        s.classList.toggle('active', i === bookingStep);
+    });
+    const dots = document.querySelectorAll('.step-dot');
+    const lines = document.querySelectorAll('.step-line');
+    dots.forEach((d, i) => {
+        d.classList.remove('active', 'completed');
+        if (i < bookingStep) d.classList.add('completed');
+        if (i === bookingStep) d.classList.add('active');
+    });
+    lines.forEach((l, i) => {
+        l.classList.toggle('completed', i < bookingStep);
+    });
+}
+
+function updateBookingSummary() {
+    const service = document.getElementById('booking-service');
+    const name = document.getElementById('booking-name');
+    const phone = document.getElementById('booking-phone');
+    const email = document.getElementById('booking-email');
+    const summary = document.getElementById('booking-summary');
+    if (!summary) return;
+    const dateStr = selectedDate ? selectedDate.toLocaleDateString(currentLang === 'ar' ? 'ar-KW' : 'en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : (currentLang === 'ar' ? 'لم يتم الاختيار' : 'Not selected');
+    summary.innerHTML = `
+        <p style="margin-bottom:8px;"><span style="color:var(--gold);font-weight:600;">${currentLang === 'ar' ? 'العلاج:' : 'Treatment:'}</span> ${service.options[service.selectedIndex].text}</p>
+        <p style="margin-bottom:8px;"><span style="color:var(--gold);font-weight:600;">${currentLang === 'ar' ? 'التاريخ:' : 'Date:'}</span> ${dateStr}</p>
+        <p style="margin-bottom:8px;"><span style="color:var(--gold);font-weight:600;">${currentLang === 'ar' ? 'الوقت:' : 'Time:'}</span> ${selectedTime || (currentLang === 'ar' ? 'لم يتم الاختيار' : 'Not selected')}</p>
+        <p style="margin-bottom:8px;"><span style="color:var(--gold);font-weight:600;">${currentLang === 'ar' ? 'الاسم:' : 'Name:'}</span> ${name ? name.value : ''}</p>
+        <p style="margin-bottom:8px;"><span style="color:var(--gold);font-weight:600;">${currentLang === 'ar' ? 'الهاتف:' : 'Phone:'}</span> ${phone ? phone.value : ''}</p>
+        <p><span style="color:var(--gold);font-weight:600;">${currentLang === 'ar' ? 'البريد:' : 'Email:'}</span> ${email ? email.value : ''}</p>
+    `;
+}
+
+function confirmBooking() {
+    bookingStep = 4;
+    document.querySelectorAll('.booking-step').forEach(s => s.classList.remove('active'));
+    document.getElementById('bstep-success').classList.add('active');
+}
+
+// ============================================
+// CONTACT MULTI-STEP FORM
+// ============================================
+let contactStep = 1;
+
+function nextContactStep() {
+    contactStep++;
+    updateContactUI();
+}
+
+function prevContactStep() {
+    contactStep--;
+    updateContactUI();
+}
+
+function updateContactUI() {
+    document.querySelectorAll('#contact-form .form-step').forEach((s, i) => {
+        s.classList.toggle('active', i + 1 === contactStep);
+    });
+    for (let i = 1; i <= 3; i++) {
+        const fill = document.getElementById('cfp-' + i);
+        if (fill) fill.style.width = (i <= contactStep ? '100%' : '0%');
+    }
+}
+
+function submitContactForm() {
+    contactStep = 3;
+    updateContactUI();
+    // EmailJS or other integration would go here
+}
+
+// ============================================
+// NEWSLETTER
+// ============================================
+function subscribeNewsletter() {
+    const email = document.getElementById('newsletter-email');
+    if (email && email.value) {
+        email.value = '';
+        alert(currentLang === 'ar' ? 'شكراً لاشتراكك!' : 'Thank you for subscribing!');
+    }
+}
+
+// ============================================
+// COOKIE CONSENT
+// ============================================
+function checkCookieConsent() {
+    if (!localStorage.getItem('skydental_cookies_accepted')) {
+        const bar = document.getElementById('cookie-bar');
+        if (bar) bar.classList.add('show');
+    }
+}
+
+function acceptCookies() {
+    localStorage.setItem('skydental_cookies_accepted', 'true');
+    const bar = document.getElementById('cookie-bar');
+    if (bar) bar.classList.remove('show');
+}
+
+// ============================================
+// AI SMILE RATER
+// ============================================
+let cameraStream = null;
+let capturedDataUrl = null;
+
+// Replace with your Anthropic API key
+const ANTHROPIC_API_KEY = 'YOUR_ANTHROPIC_API_KEY';
+
+async function startCamera() {
+    try {
+        cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: 480, height: 480 } });
+        const video = document.getElementById('camera-video');
+        video.srcObject = cameraStream;
+        document.getElementById('rater-step-1').classList.remove('active');
+        document.getElementById('rater-step-2').classList.add('active');
+        gsap.from('.camera-preview', { scale: 0.8, opacity: 0, duration: 0.5, ease: 'back.out(1.7)' });
+    } catch (err) {
+        document.getElementById('camera-denied').style.display = 'block';
+    }
+}
+
+function capturePhoto() {
+    const video = document.getElementById('camera-video');
+    const canvas = document.createElement('canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0);
+    capturedDataUrl = canvas.toDataURL('image/jpeg', 0.8);
+    document.getElementById('captured-image').src = capturedDataUrl;
+    stopCamera();
+    document.getElementById('rater-step-2').classList.remove('active');
+    document.getElementById('rater-step-3').classList.add('active');
+    gsap.from('#rater-step-3', { opacity: 0, y: 20, duration: 0.5 });
+}
+
+function retakePhoto() {
+    stopCamera();
+    capturedDataUrl = null;
+    document.querySelectorAll('.rater-step').forEach(s => s.classList.remove('active'));
+    document.getElementById('rater-step-1').classList.add('active');
+    document.getElementById('camera-denied').style.display = 'none';
+    document.getElementById('rater-result-card').classList.remove('urgent-glow');
+}
+
+function stopCamera() {
+    if (cameraStream) {
+        cameraStream.getTracks().forEach(t => t.stop());
+        cameraStream = null;
+    }
+}
+
+async function rateSmile() {
+    if (!capturedDataUrl) return;
+    const btn = document.getElementById('rate-btn');
+    const loading = document.getElementById('rater-loading');
+    btn.style.display = 'none';
+    loading.style.display = 'block';
+
+    try {
+        const base64Data = capturedDataUrl.split(',')[1];
+        const response = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': ANTHROPIC_API_KEY,
+                'anthropic-version': '2023-06-01'
+            },
+            body: JSON.stringify({
+                model: 'claude-sonnet-4-20250514',
+                max_tokens: 500,
+                system: 'You are a friendly dental aesthetics AI for Sky Dental Center Kuwait. Look at this smile photo and rate it from 1 to 5 stars. Be encouraging but honest. Return ONLY a JSON object with these fields: stars (number 1-5), title (short catchy title for their smile), message (2-3 sentence personalized feedback), recommendation (1 sentence call to action). For 1-2 stars say they would greatly benefit from Sky Dental services. For 3 stars say there is room for improvement and Sky Dental can help. For 4 stars say they have a great smile and Sky Dental can make it perfect. For 5 stars say they have a world class smile.',
+                messages: [{
+                    role: 'user',
+                    content: [{
+                        type: 'image',
+                        source: {
+                            type: 'base64',
+                            media_type: 'image/jpeg',
+                            data: base64Data
+                        }
+                    }, {
+                        type: 'text',
+                        text: 'Please rate this smile.'
+                    }]
+                }]
+            })
+        });
+
+        const data = await response.json();
+        let result;
+        try {
+            const textContent = data.content[0].text;
+            const jsonMatch = textContent.match(/\{[\s\S]*\}/);
+            result = JSON.parse(jsonMatch[0]);
+        } catch(e) {
+            result = { stars: 4, title: 'Beautiful Smile', message: 'You have a lovely smile!', recommendation: 'Visit Sky Dental to make it perfect.' };
+        }
+
+        showRaterResult(result);
+    } catch (err) {
+        // Fallback result if API fails
+        const result = { stars: 4, title: 'Wonderful Smile', message: 'We couldn\'t complete the AI analysis, but we\'d love to see you in person for a professional assessment!', recommendation: 'Book a consultation at Sky Dental for a detailed smile evaluation.' };
+        showRaterResult(result);
+    }
+}
+
+function showRaterResult(result) {
+    document.getElementById('rater-step-3').classList.remove('active');
+    document.getElementById('rater-step-4').classList.add('active');
+
+    const starsHtml = '★'.repeat(result.stars) + '☆'.repeat(5 - result.stars);
+    document.getElementById('result-stars').innerHTML = starsHtml;
+    document.getElementById('result-title').textContent = result.title;
+    document.getElementById('result-message').textContent = result.message;
+    document.getElementById('result-recommendation').textContent = result.recommendation;
+
+    const card = document.getElementById('rater-result-card');
+    card.classList.remove('urgent-glow');
+
+    if (result.stars <= 2) {
+        card.classList.add('urgent-glow');
+    } else if (result.stars === 5) {
+        launchConfetti();
+    }
+
+    gsap.from('#rater-step-4', { opacity: 0, scale: 0.9, duration: 0.6, ease: 'back.out(1.7)' });
+}
+
+function launchConfetti() {
+    const container = document.getElementById('confetti-container');
+    const colors = ['#c9a84c', '#e0c97f', '#a8872e', '#ffd700', '#fff'];
+    for (let i = 0; i < 60; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.left = Math.random() * 100 + '%';
+        piece.style.top = '-10px';
+        piece.style.width = (Math.random() * 8 + 4) + 'px';
+        piece.style.height = (Math.random() * 8 + 4) + 'px';
+        piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+        container.appendChild(piece);
+        gsap.to(piece, {
+            y: window.innerHeight + 50,
+            x: (Math.random() - 0.5) * 300,
+            rotation: Math.random() * 720,
+            duration: Math.random() * 2 + 1.5,
+            ease: 'power1.out',
+            delay: Math.random() * 0.5,
+            onComplete: () => piece.remove()
+        });
+    }
+}
+
+// ============================================
+// AI CHATBOT
+// ============================================
+let chatbotOpen = false;
+let chatHistory = [];
+
+function toggleChatbot() {
+    chatbotOpen = !chatbotOpen;
+    const panel = document.getElementById('chatbot-panel');
+    if (chatbotOpen) {
+        panel.classList.add('open');
+        gsap.from(panel, { y: 20, opacity: 0, duration: 0.3, ease: 'power2.out' });
+        document.getElementById('chat-input').focus();
+    } else {
+        panel.classList.remove('open');
+    }
+}
+
+async function sendChatMessage() {
+    const input = document.getElementById('chat-input');
+    const msg = input.value.trim();
+    if (!msg) return;
+    input.value = '';
+
+    // Add user message
+    chatHistory.push({ role: 'user', content: msg });
+    addChatBubble(msg, 'user');
+
+    // Show loading
+    const loadingEl = document.createElement('div');
+    loadingEl.className = 'chat-loading';
+    loadingEl.innerHTML = '<span></span><span></span><span></span>';
+    document.getElementById('chat-messages').appendChild(loadingEl);
+    scrollChatBottom();
+
+    try {
+        const response = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': ANTHROPIC_API_KEY,
+                'anthropic-version': '2023-06-01'
+            },
+            body: JSON.stringify({
+                model: 'claude-sonnet-4-20250514',
+                max_tokens: 300,
+                system: 'You are a helpful assistant for Sky Dental Center, a luxury aesthetic dental clinic in Kuwait City. Answer questions about dental treatments, booking appointments, clinic hours, and general dental advice. Keep responses concise and professional. Clinic hours: Sat-Wed 9AM-10PM, Thu 9AM-8PM, Fri closed. Phone: +965 2222 0000.',
+                messages: chatHistory.slice(-10)
+            })
+        });
+
+        loadingEl.remove();
+        const data = await response.json();
+        const assistantMsg = data.content[0].text;
+        chatHistory.push({ role: 'assistant', content: assistantMsg });
+        addChatBubble(assistantMsg, 'assistant');
+    } catch (err) {
+        loadingEl.remove();
+        const fallback = currentLang === 'ar'
+            ? 'عذراً، حدث خطأ. يرجى الاتصال بنا على +965 2222 0000.'
+            : 'Sorry, something went wrong. Please call us at +965 2222 0000.';
+        addChatBubble(fallback, 'assistant');
+    }
+}
+
+function addChatBubble(text, type) {
+    const bubble = document.createElement('div');
+    bubble.className = 'chat-msg ' + type;
+    bubble.textContent = text;
+    document.getElementById('chat-messages').appendChild(bubble);
+    gsap.from(bubble, { opacity: 0, y: 10, duration: 0.3 });
+    scrollChatBottom();
+}
+
+function scrollChatBottom() {
+    const msgs = document.getElementById('chat-messages');
+    msgs.scrollTop = msgs.scrollHeight;
+}
+
+// ============================================
+// LIGHTBOX
+// ============================================
+function openLightbox(item) {
+    const img = item.querySelector('img');
+    const lightbox = document.getElementById('lightbox');
+    document.getElementById('lightbox-img').src = img.src;
+    lightbox.classList.add('open');
+    gsap.from('#lightbox', { opacity: 0, duration: 0.3 });
+}
+
+function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+}
+
+document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+});
+
+// ============================================
+// GSAP ANIMATIONS
+// ============================================
+function initGSAP() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Section reveal
+    document.querySelectorAll('.section').forEach(section => {
+        gsap.to(section, {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: section,
+                start: 'top 85%',
+                once: true
+            }
+        });
+    });
+
+    // Stats counter animation
+    document.querySelectorAll('.stat-number').forEach(el => {
+        const target = parseInt(el.getAttribute('data-count'));
+        const suffix = el.getAttribute('data-suffix') || '';
+        gsap.to(el, {
+            innerText: target,
+            duration: 2,
+            snap: { innerText: 1 },
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: el,
+                start: 'top 85%',
+                once: true,
+                onUpdate: function() {
+                    const current = Math.round(gsap.getProperty(el, 'innerText'));
+                    el.textContent = current.toLocaleString() + suffix;
+                }
+            }
+        });
+    });
+
+    // Process line animation
+    const processLine = document.getElementById('process-line');
+    if (processLine) {
+        ScrollTrigger.create({
+            trigger: '#process-steps-container',
+            start: 'top 70%',
+            end: 'bottom 40%',
+            scrub: 1,
+            onUpdate: self => {
+                processLine.style.width = (self.progress * 100) + '%';
+            }
+        });
+    }
+
+    // Cards stagger entrance
+    document.querySelectorAll('.treatments-grid, .why-grid, .tech-grid, .testimonials-grid, .ba-grid, .team-grid').forEach(grid => {
+        gsap.from(grid.children, {
+            opacity: 0,
+            y: 30,
+            duration: 0.6,
+            stagger: 0.15,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: grid,
+                start: 'top 85%',
+                once: true
+            }
+        });
+    });
+
+    // Patient of the month
+    const potm = document.querySelector('.patient-month');
+    if (potm) {
+        gsap.from(potm, {
+            opacity: 0,
+            scale: 0.95,
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: potm,
+                start: 'top 85%',
+                once: true
+            }
+        });
+    }
+}
+
+// ============================================
+// PRELOADER
+// ============================================
+function runPreloader() {
+    const text = document.getElementById('preloader-text');
+    const subtitle = document.getElementById('preloader-subtitle');
+    const canvas = document.getElementById('preloader-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Particles
+    let particles = [];
+    const particleCount = 80;
+
+    class Particle {
+        constructor(burst) {
+            this.x = canvas.width / 2;
+            this.y = canvas.height / 2;
+            if (burst) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 6 + 2;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.life = 1;
+                this.decay = Math.random() * 0.02 + 0.01;
+            } else {
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.life = 1;
+                this.decay = 0;
+            }
+            this.size = Math.random() * 3 + 1;
+            this.alpha = Math.random() * 0.5 + 0.5;
+        }
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            if (this.decay > 0) {
+                this.life -= this.decay;
+                this.vy += 0.05;
+            }
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(201, 168, 76, ${this.alpha * this.life})`;
+            ctx.fill();
+        }
+    }
+
+    // Ambient particles during text draw
+    for (let i = 0; i < 30; i++) {
+        particles.push(new Particle(false));
+    }
+
+    let phase = 'text';
+    let frameCount = 0;
+    let textRevealed = false;
+    let burstTriggered = false;
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        frameCount++;
+
+        particles = particles.filter(p => p.life > 0);
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+
+        if (phase === 'text') {
+            if (frameCount === 10) {
+                gsap.to(text, { opacity: 1, duration: 0.8, ease: 'power2.out' });
+            }
+            if (frameCount === 50 && !textRevealed) {
+                textRevealed = true;
+                gsap.to(subtitle, { opacity: 1, duration: 0.6, ease: 'power2.out' });
+            }
+            if (frameCount === 80) {
+                phase = 'burst';
+            }
+        }
+
+        if (phase === 'burst' && !burstTriggered) {
+            burstTriggered = true;
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle(true));
+            }
+            setTimeout(() => {
+                gsap.to('#preloader', {
+                    opacity: 0,
+                    duration: 0.6,
+                    ease: 'power2.in',
+                    onComplete: () => {
+                        document.getElementById('preloader').style.display = 'none';
+                        initGSAP();
+                        initLenis();
+                    }
+                });
+            }, 1200);
+        }
+
+        if (phase === 'burst') {
+            // Add continuous sparkle
+            if (frameCount % 3 === 0) {
+                const p = new Particle(true);
+                p.size = Math.random() * 2 + 0.5;
+                p.vx *= 0.5;
+                p.vy *= 0.5;
+                particles.push(p);
+            }
+        }
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+}
+
+// ============================================
+// LENIS SMOOTH SCROLL
+// ============================================
+function initLenis() {
+    if (typeof Lenis !== 'undefined') {
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smooth: true
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+    }
+}
+
+// ============================================
+// INIT
+// ============================================
+document.addEventListener('DOMContentLoaded', () => {
+    runPreloader();
+    checkCookieConsent();
+    renderCalendar();
+});
+</script>
+</body>
+</html>
